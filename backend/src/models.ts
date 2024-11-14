@@ -3,6 +3,7 @@ import {
   Column,
   Model,
   Length,
+  DataType,
 } from "sequelize-typescript";
 
 import {
@@ -21,6 +22,6 @@ export class BlogPost extends Model {
   title: string;
 
   @Length({ min: 1, max: MAX_BLOGPOST_CONTENT_LENGTH })
-  @Column
+  @Column(DataType.TEXT)
   content: string;
 }
