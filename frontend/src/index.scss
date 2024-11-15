@@ -9,6 +9,9 @@
   text-rendering: optimizeLegibility;
 
   --hsl-black: hsl(250, 50%, 4%);
+
+  --fz-16: 16px;
+  --fz-20: 20px;
 }
 
 * {
@@ -17,4 +20,14 @@
 
 body {
   background: var(--hsl-black);
+  font-size: var(--fz-16);
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

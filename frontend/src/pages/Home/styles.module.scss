@@ -1,0 +1,65 @@
+@use "@/styles/variables" as *;
+
+.home {
+  max-width: 1200px;
+  margin: auto;
+
+  & .subtitle {
+    font-size: var(--fz-20);
+  }
+
+  & .blog-posts {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    /* column-gap: 40px; */
+    row-gap: 20px;
+  }
+
+  & .blog-post {
+    border-radius: 5px;
+    overflow: hidden;
+    flex: 1;
+
+    /* max-width: 400px; */
+    background: hsl(250, 20%, 10%);
+
+    & .cover {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    & .title {
+      display: inline-block;
+      padding: 10px;
+      transition: .3s;
+
+      &:hover {
+        color: gray;
+      }
+    }
+  }
+
+
+  @media #{$laptop} {
+    & .blog-posts {
+      flex-direction: row;
+      column-gap: 20px;
+    }
+
+    & .blog-post {
+      &:nth-child(3) { display: none; }
+    }
+  }
+
+  @media #{$desktop} {
+    & .blog-posts {
+      column-gap: 40px;
+    }
+
+    & .blog-post:nth-child(3) {
+      display: block;
+    }
+  }
+}
