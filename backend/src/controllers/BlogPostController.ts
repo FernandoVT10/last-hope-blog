@@ -3,7 +3,7 @@ import sharp from "sharp";
 import path from "path";
 
 import { BlogPost } from "../models";
-import { BLOGPOST_COVERS_DIR } from "../constants";
+import { BLOGPOST_COVERS_DIR, BLOGPOST_COVER_EXT, ASSETS_URL } from "../constants";
 
 const MAX_RANDOM_NUM = 10000;
 
@@ -14,12 +14,16 @@ type CreateOneData = {
 
 async function saveCover(cover: Buffer): Promise<string> {
   const coverName = `${Math.floor(Math.random() * MAX_RANDOM_NUM)}-${Date.now()}`;
-  const coverWithExt = `${coverName}.webp`;
+  const coverWithExt = `${coverName}.${BLOGPOST_COVER_EXT}`;
 
   await fs.promises.mkdir(BLOGPOST_COVERS_DIR, { recursive: true });
   await sharp(cover).toFile(path.resolve(BLOGPOST_COVERS_DIR, coverWithExt));
 
   return coverName;
+}
+
+function getCoverURL(coverName: string): string {
+  return `${ASSETS_URL}/covers/${coverName}.${BLOGPOST_COVER_EXT}`;
 }
 
 async function createOne(cover: Buffer, data: CreateOneData): Promise<void> {
@@ -31,11 +35,16 @@ async function createOne(cover: Buffer, data: CreateOneData): Promise<void> {
   });
 }
 
-async function getAll(): Promise<BlogPost[]> {
-  return await BlogPost.findAll();
+async function getAllWithURLCover(): Promise<BlogPost[]> {
+  const posts = await BlogPost.findAll();
+  return posts.map(post => {
+    post.cover = getCoverURL(post.cover);
+
+    return post;
+  });
 }
 
 export default {
   createOne,
-  getAll,
+  getAllWithURLCover,
 };

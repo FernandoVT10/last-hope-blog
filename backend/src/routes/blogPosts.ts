@@ -56,7 +56,7 @@ router.post(
 
 router.get("/", async (_, res, next) => {
   try {
-    const blogPosts = await BlogPostController.getAll();
+    const blogPosts = await BlogPostController.getAllWithURLCover();
     res.json({ blogPosts });
   } catch(e) {
     next(e);
