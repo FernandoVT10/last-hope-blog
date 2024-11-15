@@ -44,7 +44,26 @@ async function getAllWithURLCover(): Promise<BlogPost[]> {
   });
 }
 
+async function getById(id: number): Promise<BlogPost> {
+  const blogPost = await BlogPost.findByPk(id);
+
+  if(!blogPost)
+    throw new Error("Blog post is null");
+
+  return blogPost;
+}
+
+async function existsById(id: number): Promise<boolean> {
+  const count = await BlogPost.count({
+    where: { id },
+  });
+
+  return count > 0;
+}
+
 export default {
   createOne,
   getAllWithURLCover,
+  getById,
+  existsById,
 };

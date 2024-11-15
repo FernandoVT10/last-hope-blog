@@ -4,7 +4,7 @@ import {
   MAX_BLOGPOST_TITLE_LENGTH
 } from "../constants";
 
-import validateReq, { Validators } from "../middlewares/validateReq";
+import validateReq, { Validators, Validator } from "../middlewares/validateReq";
 import parseMultipart, { imageValidator } from "../middlewares/parseMultipart";
 
 import BlogPostController from "../controllers/BlogPostController";
@@ -58,6 +58,31 @@ router.get("/", async (_, res, next) => {
   try {
     const blogPosts = await BlogPostController.getAllWithURLCover();
     res.json({ blogPosts });
+  } catch(e) {
+    next(e);
+  }
+});
+
+const idValidator: Validator = {
+  type: "number",
+  in: "params",
+  min: 1,
+  required: true,
+  custom: async (id) => {
+    // TODO: what if existsById throws? Handle that
+    if(!await BlogPostController.existsById(id))
+      throw new Error("there is no blog post with this id");
+
+    return true;
+  },
+};
+
+router.get("/:id", validateReq({ id: idValidator }), async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id);
+
+    const blogPost = await BlogPostController.getById(id);
+    res.json({ blogPost });
   } catch(e) {
     next(e);
   }

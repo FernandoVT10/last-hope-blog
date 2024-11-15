@@ -6,12 +6,20 @@ type StringValidator = {
   required?: boolean;
 };
 
+type NumberValidator = {
+  type: "number";
+  in?: "body" | "params";
+  min?: number;
+  required?: boolean;
+  custom?: (val: number) => Promise<boolean>;
+};
+
 type FileValidator = {
   type: "file";
   custom: (req: Request) => Promise<boolean>;
 };
 
-export type Validator = StringValidator | FileValidator;
+export type Validator = StringValidator | FileValidator | NumberValidator;
 
 export type Validators = Record<string, Validator>;
 
@@ -25,7 +33,6 @@ function validateReq(validators: Validators): RequestHandler {
   return async (req, res, next) => {
     for(const key of Object.keys(validators)) {
       const validator = validators[key];
-      const val = req.body[key];
 
       switch(validator.type) {
         case "file": {
@@ -40,6 +47,8 @@ function validateReq(validators: Validators): RequestHandler {
           }
         } break;
         case "string": {
+          const val = req.body[key];
+
           if(validator.required && !val)
             return badRequest(res, `${key} is required`);
 
@@ -48,6 +57,31 @@ function validateReq(validators: Validators): RequestHandler {
 
           if(validator.maxLength && val.length > validator.maxLength)
             return badRequest(res, `${key} must contain ${validator.maxLength} or less characters`);
+        } break;
+        case "number": {
+          const val = req[validator.in || "body"][key];
+
+          if(validator.required && !val)
+            return badRequest(res, `${key} is required`);
+
+          const num = parseInt(val);
+          if(Number.isNaN(num))
+            return badRequest(res, `${key} should be a number`);
+
+          if(validator.min && num < validator.min)
+            return badRequest(res, `${key} should be greater than ${validator.min}`);
+
+          if(validator.custom) {
+            try {
+              await validator.custom(num);
+            } catch(e) {
+              if(e instanceof Error)
+                return badRequest(res, e.message);
+
+              console.error("This code should be unreachable", e);
+              return badRequest(res, "Server Error");
+            }
+          }
         } break;
         default: {
           throw new Error("Unreachable");
