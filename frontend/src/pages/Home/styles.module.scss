@@ -9,7 +9,6 @@
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    /* column-gap: 40px; */
     row-gap: 20px;
   }
 
@@ -17,8 +16,6 @@
     border-radius: 5px;
     overflow: hidden;
     flex: 1;
-
-    /* max-width: 400px; */
     background: hsl(250, 20%, 10%);
 
     & .cover {

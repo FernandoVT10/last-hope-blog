@@ -8,9 +8,15 @@
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 
+  --hsl-black-lighter: hsl(250, 15%, 20%);
   --hsl-black-light: hsl(250, 20%, 10%);
   --hsl-black: hsl(250, 50%, 4%);
 
+  --hsl-blue: hsl(217 91% 75%);
+
+  --hsl-gray-light: hsl(227 35.3% 80%);
+
+  --fz-14: 14px;
   --fz-16: 16px;
   --fz-20: 20px;
   --fz-25: 25px;
@@ -32,4 +38,8 @@ h1, h2, h3, p {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+button {
+  cursor: pointer;
 }

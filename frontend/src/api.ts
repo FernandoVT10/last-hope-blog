@@ -17,7 +17,33 @@ async function getBlogPost(blogPostId: number): Promise<BlogPost | null> {
   return json.blogPost;
 }
 
+type CreateBlogPostData = {
+  cover: File;
+  title: string;
+  content: string;
+};
+
+async function createBlogPost(data: CreateBlogPostData): Promise<BlogPost> {
+  const formData = new FormData();
+
+  formData.append("cover", data.cover);
+  formData.append("title", data.title);
+  formData.append("content", data.content);
+
+  const res = await fetch(`${API_URL}/blog/posts`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if(res.status !== 200)
+    throw new Error("Something went wrong trying to create the post");
+
+  const json = await res.json();
+  return json.blogPost;
+}
+
 export default {
   getBlogPosts,
   getBlogPost,
+  createBlogPost,
 };

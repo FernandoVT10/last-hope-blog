@@ -26,10 +26,10 @@ function getCoverURL(coverName: string): string {
   return `${ASSETS_URL}/covers/${coverName}.${BLOGPOST_COVER_EXT}`;
 }
 
-async function createOne(cover: Buffer, data: CreateOneData): Promise<void> {
+async function createOne(cover: Buffer, data: CreateOneData): Promise<BlogPost> {
   const coverName = await saveCover(cover);
 
-  await BlogPost.create({
+  return await BlogPost.create({
     ...data,
     cover: coverName,
   });

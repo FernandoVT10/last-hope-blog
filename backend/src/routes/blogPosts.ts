@@ -32,8 +32,8 @@ router.post(
   async (req, res, next) => {
     try {
       const { title, content } = req.body;
-      await BlogPostController.createOne(req.file as Buffer, { title, content });
-      res.sendStatus(200);
+      const blogPost = await BlogPostController.createOne(req.file as Buffer, { title, content });
+      res.json({ blogPost });
     } catch (e) {
       next(e);
     }
