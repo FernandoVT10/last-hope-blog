@@ -8,25 +8,11 @@ import validateReq, { Validators, Validator } from "../middlewares/validateReq";
 import parseMultipart, { imageValidator } from "../middlewares/parseMultipart";
 
 import BlogPostController from "../controllers/BlogPostController";
-import sharp from "sharp";
 
 const router = Router();
 
 const createBlogPost: Validators = {
-  cover: {
-    type: "file",
-    custom: async (req) => {
-      if(!req.file) throw new Error("cover is required");
-
-      try {
-        await sharp(req.file).stats();
-      } catch {
-        throw new Error("cover is not a valid image");
-      }
-
-      return true;
-    },
-  },
+  cover: { type: "image" },
   title: {
     type: "string",
     required: true,
@@ -70,7 +56,16 @@ const idValidator: Validator = {
   required: true,
   custom: async (id) => {
     // TODO: what if existsById throws? Handle that
-    if(!await BlogPostController.existsById(id))
+    let exists: boolean;
+
+    try {
+      exists = await BlogPostController.existsById(id);
+    } catch(e) {
+      console.error(new Error("Error trying to query the db"), e);
+      throw new Error("Server Error");
+    }
+
+    if(!exists)
       throw new Error("there is no blog post with this id");
 
     return true;
