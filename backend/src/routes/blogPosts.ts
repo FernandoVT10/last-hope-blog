@@ -76,7 +76,7 @@ router.get("/:id", validateReq({ id: idValidator }), async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
 
-    const blogPost = await BlogPostController.getById(id);
+    const blogPost = await BlogPostController.getByIdWithURLCover(id);
     res.json({ blogPost });
   } catch(e) {
     next(e);
