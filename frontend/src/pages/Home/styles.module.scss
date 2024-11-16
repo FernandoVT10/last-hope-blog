@@ -1,9 +1,6 @@
 @use "@/styles/variables" as *;
 
 .home {
-  max-width: 1200px;
-  margin: auto;
-
   & .subtitle {
     font-size: var(--fz-20);
   }

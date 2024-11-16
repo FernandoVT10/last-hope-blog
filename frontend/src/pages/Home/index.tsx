@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { parseCssModule } from "@utils/css";
-
+import { PageWrapper } from "@/components/Layout";
 import { BlogPost } from "@/types";
 
 import styles from "./styles.module.scss";
@@ -19,6 +19,7 @@ function Home() {
       try {
         setBlogPosts(await api.getBlogPosts());
       } catch {
+        // TODO: handle this error better :)
         console.log("Error");
       }
 
@@ -32,7 +33,7 @@ function Home() {
     return blogPosts.map(blogPost => {
       return (
         <div className={getClassName("blog-post")} key={blogPost.id}>
-          <a href={`/blog/post/${blogPost.id}`}>
+          <a href={`/blog/posts/${blogPost.id}`}>
             <img
               className={getClassName("cover")}
               src={blogPost.cover}
@@ -47,12 +48,12 @@ function Home() {
   };
 
   return (
-    <div className={getClassName("home")}>
+    <PageWrapper className={getClassName("home")}>
       <h3 className={getClassName("subtitle")}>Recent Blog Posts</h3>
       <div className={getClassName("blog-posts")}>
         {getBlogPosts()}
       </div>
-    </div>
+    </PageWrapper>
   );
 }
 

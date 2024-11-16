@@ -8,10 +8,12 @@
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 
+  --hsl-black-light: hsl(250, 20%, 10%);
   --hsl-black: hsl(250, 50%, 4%);
 
   --fz-16: 16px;
   --fz-20: 20px;
+  --fz-25: 25px;
 }
 
 * {

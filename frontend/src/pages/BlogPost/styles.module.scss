@@ -1,0 +1,28 @@
+.blog-post {
+  padding: 20px 0;
+
+  & .cover-container {
+    $cover-height: 500px;
+    height: $cover-height;
+
+    & .cover {
+      width: 100%;
+      height: $cover-height;
+      object-fit: cover;
+    }
+  }
+
+  & .container {
+    padding: 20px;
+    background: var(--hsl-black-light);
+  }
+
+  & .title {
+    font-size: var(--fz-25);
+  }
+
+  & .content {
+    margin-top: 20px;
+    line-height: 2;
+  }
+}
