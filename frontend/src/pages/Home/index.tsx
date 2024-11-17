@@ -30,7 +30,7 @@ function Home() {
   }, []);
 
   const getBlogPosts = () => {
-    return blogPosts.map(blogPost => {
+    return blogPosts.slice(0, 3).map(blogPost => {
       return (
         <div className={getClassName("blog-post")} key={blogPost.id}>
           <a href={`/blog/posts/${blogPost.id}`}>

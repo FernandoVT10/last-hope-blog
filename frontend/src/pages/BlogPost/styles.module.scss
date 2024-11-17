@@ -14,7 +14,7 @@
 
   & .container {
     padding: 20px;
-    background: var(--hsl-black-light);
+    background: hsl(var(--hsl-black-light));
   }
 
   & .title {

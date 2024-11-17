@@ -43,6 +43,7 @@ type TextAreaProps = {
   className?: string;
   required?: boolean;
 };
+
 export function TextArea(props: TextAreaProps) {
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     props.onChange(e.target.value);
@@ -62,5 +63,24 @@ export function TextArea(props: TextAreaProps) {
         required={props.required}
       ></textarea>
     </div>
+  );
+}
+
+type ButtonProps = {
+  type: "button" | "submit";
+  children: React.ReactNode[] | React.ReactNode | string;
+  onClick?: () => void;
+  className?: string;
+};
+
+export function Button(props: ButtonProps) {
+  return (
+    <button
+      type={props.type}
+      className={getClassName("button", props.className)}
+      onClick={props.onClick}
+    >
+      {props.children}
+    </button>
   );
 }

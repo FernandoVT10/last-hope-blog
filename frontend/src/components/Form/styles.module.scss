@@ -1,14 +1,17 @@
+$bg-color: hsl(var(--hsl-black-lighter));
+$border-color: hsl(var(--hsl-blue));
+
 .input {
   outline: 0;
   width: 100%;
   padding: 10px;
-  background: var(--hsl-black-lighter);
+  background: $bg-color;
   border: solid 1px transparent;
   border-radius: 5px;
   transition: border-color .3s;
 
   &:focus {
-    border-color: var(--hsl-blue);
+    border-color: $border-color;
   }
 }
 
@@ -21,7 +24,7 @@
     right: $gap;
     bottom: $gap;
     font-size: var(--fz-14);
-    color: var(--hsl-blue);
+    color: hsl(var(--hsl-blue));
   }
 
   & .textarea {
@@ -31,11 +34,25 @@
     border-radius: 5px;
     padding: 10px;
     min-height: 200px;
-    background: var(--hsl-black-lighter);
+    background: $bg-color;
+    resize: none;
     transition: border-color .3s;
 
     &:focus {
-      border-color: var(--hsl-blue);
+      border-color: $border-color;
     }
+  }
+}
+
+.button {
+  background: hsl(var(--hsl-blue-darker));
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  transition: background .3s;
+  border-radius: 5px;
+
+  &:hover {
+    background: hsl(var(--hsl-blue-darker-2));
   }
 }

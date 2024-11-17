@@ -13,33 +13,51 @@
   }
 
   & .cover-input {
-    visibility: hidden;
+    display: none;
   }
 
-  & .change-cover-btn {
-    $hover-bg: hsl(240, 20%, 40%);
-
+  & .change-cover-label {
     cursor: pointer;
     position: absolute;
     right: 10px;
     bottom: 10px;
     padding: 10px 15px;
-    background: var(--hsl-black);
+    background: hsl(var(--hsl-blue-darker));
     border: none;
     border-radius: 5px;
     font-size: var(--fz-14);
     display: flex;
     align-items: center;
     transition: background .3s;
-    box-shadow: 0 0 5px -2px $hover-bg;
+    box-shadow: 0 0 5px 0px hsl(var(--hsl-black-lighter));
 
     &:hover {
-      background: $hover-bg;
+      background: hsl(var(--hsl-blue-darker-2));
     }
 
     & .icon {
       margin-right: 5px;
-      color: gray;
+      color: hsl(var(--hsl-white-dark));
+    }
+  }
+
+  & .no-preview {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: dashed 3px hsla(var(--hsl-white), 0.5);
+    font-weight: bold;
+    font-size: var(--fz-20);
+    transition: .3s;
+
+    &:hover {
+      border-color: hsl(var(--hsl-blue));
+      color: hsl(var(--hsl-blue));
+      background: hsla(var(--hsl-blue), 0.2);
     }
   }
 }
@@ -49,7 +67,7 @@
 
   & .container {
     padding: 20px;
-    background: var(--hsl-black-light);
+    background: hsl(var(--hsl-black-light));
     border-radius: 5px;
   }
 
@@ -70,17 +88,5 @@
   & .btn-container {
     display: flex;
     justify-content: flex-end;
-
-    & .submit-btn {
-      background: var(--hsl-black);
-      border: none;
-      padding: 10px 20px;
-      margin-top: 20px;
-      transition: background .3s;
-
-      &:hover {
-        background: var(--hsl-black-light);
-      }
-    }
   }
 }

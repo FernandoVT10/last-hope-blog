@@ -16,7 +16,7 @@
     border-radius: 5px;
     overflow: hidden;
     flex: 1;
-    background: hsl(250, 20%, 10%);
+    background: hsl(var(--hsl-black-light));
 
     & .cover {
       width: 100%;

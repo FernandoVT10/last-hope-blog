@@ -8,13 +8,16 @@
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 
-  --hsl-black-lighter: hsl(250, 15%, 20%);
-  --hsl-black-light: hsl(250, 20%, 10%);
-  --hsl-black: hsl(250, 50%, 4%);
+  --hsl-black-lighter: 230, 15%, 15%;
+  --hsl-black-light: 235, 20%, 10%;
+  --hsl-black: 240, 30%, 5%;
 
-  --hsl-blue: hsl(217 91% 75%);
+  --hsl-white: 245, 50%, 91%;
+  --hsl-white-dark: 235, 40%, 75%;
 
-  --hsl-gray-light: hsl(227 35.3% 80%);
+  --hsl-blue: 221, 91%, 75%;
+  --hsl-blue-darker: 221, 70%, 35%;
+  --hsl-blue-darker-2: 221, 70%, 30%;
 
   --fz-14: 14px;
   --fz-16: 16px;
@@ -27,8 +30,9 @@
 }
 
 body {
-  background: var(--hsl-black);
+  background: hsl(var(--hsl-black));
   font-size: var(--fz-16);
+  color: hsl(var(--hsl-white));
 }
 
 h1, h2, h3, p {

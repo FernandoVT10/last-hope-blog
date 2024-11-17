@@ -54,14 +54,35 @@ function CoverSelector(props: CoverSelectorProps) {
     }
   };
 
+  const getSelector = () => {
+    if(!previewImage) {
+      return (
+        <label htmlFor="cover-input">
+          <div className={getClassName("no-preview")}>
+            Click to upload an image
+          </div>
+        </label>
+      );
+    }
+
+    return (
+      <div>
+        <img
+          src={previewImage}
+          alt="Cover"
+          className={getClassName("cover-preview")}
+        />
+
+        <label htmlFor="cover-input" className={getClassName("change-cover-label")}>
+          <ImageIcon size={16} className={getClassName("icon")}/>
+          Change Cover
+        </label>
+      </div>
+    );
+  };
+
   return (
     <div className={getClassName("cover-selector")}>
-      <img
-        src={previewImage}
-        alt="Cover"
-        className={getClassName("cover-preview")}
-      />
-
       <input
         id="cover-input"
         type="file"
@@ -70,10 +91,7 @@ function CoverSelector(props: CoverSelectorProps) {
         onChange={handleInput}
       />
 
-      <label htmlFor="cover-input" className={getClassName("change-cover-btn")}>
-        <ImageIcon size={16} className={getClassName("icon")}/>
-        Change Cover
-      </label>
+      {getSelector()}
     </div>
   );
 }

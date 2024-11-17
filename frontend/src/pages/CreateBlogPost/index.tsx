@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PageWrapper } from "@/components/Layout";
 import { parseCssModule } from "@/utils/css";
-import { Input, TextArea } from "@/components/Form";
+import { Button, Input, TextArea } from "@/components/Form";
 
 import CoverSelector from "./CoverSelector";
 
@@ -106,12 +106,11 @@ function CreateBlogPost() {
           </div>
 
           <div className={getClassName("btn-container")}>
-            <button
+            <Button
               type="submit"
-              className={getClassName("submit-btn")}
             >
               Create Post
-            </button>
+            </Button>
           </div>
         </form>
       </div>
