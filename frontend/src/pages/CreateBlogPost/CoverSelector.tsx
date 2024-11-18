@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { ImageIcon } from "@/icons";
-
 import { parseCssModule } from "@/utils/css";
+
+import Notifications from "@/Notifications";
 
 import styles from "./styles.module.scss";
 
@@ -29,7 +30,6 @@ type CoverSelectorProps = {
 
 function CoverSelector(props: CoverSelectorProps) {
   const [previewImage, setPreviewImage] = useState<string | undefined>(undefined);
-// http://localhost:3000/assets/covers/6659-1731708757935.webp
 
   const handleInput: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
     if(!e.target.files)
@@ -37,11 +37,8 @@ function CoverSelector(props: CoverSelectorProps) {
 
     const file = e.target.files[0];
 
-    if(!file.type.startsWith("image/")) {
-      // TODO: Notify this error to the user
-      console.error("Selected cover is not a valid image");
-      return;
-    }
+    if(!file.type.startsWith("image/"))
+      return Notifications.error("You must select a valid image");
 
     try {
       const imageUrl = await readImageAsURL(file);
@@ -49,8 +46,7 @@ function CoverSelector(props: CoverSelectorProps) {
 
       props.setCover(file);
     } catch {
-      // TODO: Notify this error to the user
-      console.error("Error trying to load the image");
+      Notifications.error("Error trying to load the image");
     }
   };
 

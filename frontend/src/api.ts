@@ -36,7 +36,7 @@ async function createBlogPost(data: CreateBlogPostData): Promise<BlogPost> {
   });
 
   if(res.status !== 200)
-    throw new Error("Something went wrong trying to create the post");
+    throw new Error(`The server responded with status ${res.status}`);
 
   const json = await res.json();
   return json.blogPost;

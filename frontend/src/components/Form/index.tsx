@@ -71,6 +71,7 @@ type ButtonProps = {
   children: React.ReactNode[] | React.ReactNode | string;
   onClick?: () => void;
   className?: string;
+  disabled?: boolean;
 };
 
 export function Button(props: ButtonProps) {
@@ -79,6 +80,7 @@ export function Button(props: ButtonProps) {
       type={props.type}
       className={getClassName("button", props.className)}
       onClick={props.onClick}
+      disabled={props.disabled}
     >
       {props.children}
     </button>

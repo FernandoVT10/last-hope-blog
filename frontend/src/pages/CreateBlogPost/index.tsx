@@ -4,6 +4,7 @@ import { parseCssModule } from "@/utils/css";
 import { Button, Input, TextArea } from "@/components/Form";
 
 import CoverSelector from "./CoverSelector";
+import Notifications from "@/Notifications";
 
 import styles from "./styles.module.scss";
 import api from "@/api";
@@ -26,6 +27,7 @@ const initialData: Data = {
 
 function CreateBlogPost() {
   const [data, setData] = useState<Data>(initialData);
+  const [loading, setLoading] = useState(false);
 
   const setCover = (cover: File) => {
     setData({
@@ -44,11 +46,12 @@ function CreateBlogPost() {
   const onSubmit: React.FormEventHandler = async (e) => {
     e.preventDefault();
 
-    if(!data.cover) {
-      // TODO: notify the user about cover is required
-      console.error("Cover is required");
-      return;
-    }
+    if(!data.cover)
+      return Notifications.error("Cover is required");
+
+    setLoading(true);
+
+    const notificationId = Notifications.loading("Creating blog post...");
 
     try {
       const blogPost = await api.createBlogPost({
@@ -57,11 +60,14 @@ function CreateBlogPost() {
         content: data.content,
       });
 
-      window.location.replace(`/blog/posts/${blogPost.id}`);
-    } catch {
-      // TODO: notify the user about cover is required
-      console.error("Something went wrong");
+      window.location.assign(`/blog/posts/${blogPost.id}`);
+    } catch(e) {
+      console.error(e);
+      Notifications.error("There was an error trying to create the post");
     }
+
+    Notifications.remove(notificationId);
+    setLoading(false);
   };
 
   return (
@@ -108,6 +114,7 @@ function CreateBlogPost() {
           <div className={getClassName("btn-container")}>
             <Button
               type="submit"
+              disabled={loading}
             >
               Create Post
             </Button>

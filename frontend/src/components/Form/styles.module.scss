@@ -49,10 +49,16 @@ $border-color: hsl(var(--hsl-blue));
   border: none;
   padding: 10px 20px;
   margin-top: 20px;
-  transition: background .3s;
+  transition: background .3s color .3s;
   border-radius: 5px;
 
   &:hover {
     background: hsl(var(--hsl-blue-darker-2));
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: hsl(var(--hsl-blue-darker-2));
+    color: hsl(var(--hsl-white-dark));
   }
 }
