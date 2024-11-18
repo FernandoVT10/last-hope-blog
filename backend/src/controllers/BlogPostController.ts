@@ -35,8 +35,11 @@ async function createOne(cover: Buffer, data: CreateOneData): Promise<BlogPost> 
   });
 }
 
-async function getAllWithURLCover(): Promise<BlogPost[]> {
-  const posts = await BlogPost.findAll();
+async function getAllWithURLCover(limit: number): Promise<BlogPost[]> {
+  const posts = await BlogPost.findAll({
+    limit,
+    order: [["createdAt", "DESC"]],
+  });
   return posts.map(post => {
     post.cover = getCoverURL(post.cover);
 

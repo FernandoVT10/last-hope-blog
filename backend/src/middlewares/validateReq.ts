@@ -12,7 +12,7 @@ type StringValidator = {
 
 type NumberValidator = {
   type: "number";
-  in?: "body" | "params";
+  in?: "body" | "params" | "query";
   min?: number;
   required?: boolean;
   custom?: (val: number) => Promise<boolean>;
@@ -27,6 +27,9 @@ export type Validators = Record<string, Validator>;
 function validateString(req: Request, validator: StringValidator, key: string): void {
   const val = req.body[key];
 
+  if(!validator.required && !val)
+    return;
+
   if(validator.required && !val)
     throw new Error(`${key} is required`);
 
@@ -39,6 +42,9 @@ function validateString(req: Request, validator: StringValidator, key: string): 
 
 async function validateNumber(req: Request, validator: NumberValidator, key: string): Promise<void> {
   const val = req[validator.in || DEFAULT_IN_VALUE][key];
+
+  if(!validator.required && !val)
+    return;
 
   if(validator.required && !val)
     throw new Error(`${key} is required`);

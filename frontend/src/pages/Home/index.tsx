@@ -17,7 +17,7 @@ function Home() {
       setLoading(true);
 
       try {
-        setBlogPosts(await api.getBlogPosts());
+        setBlogPosts(await api.getBlogPosts(3));
       } catch {
         // TODO: handle this error better :)
         console.log("Error");
@@ -30,7 +30,7 @@ function Home() {
   }, []);
 
   const getBlogPosts = () => {
-    return blogPosts.slice(0, 3).map(blogPost => {
+    return blogPosts.map(blogPost => {
       return (
         <div className={getClassName("blog-post")} key={blogPost.id}>
           <a href={`/blog/posts/${blogPost.id}`}>

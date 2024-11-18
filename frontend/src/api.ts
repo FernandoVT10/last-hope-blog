@@ -1,8 +1,8 @@
 import { API_URL } from "./constants";
 import { BlogPost } from "./types";
 
-async function getBlogPosts(): Promise<BlogPost[]> {
-  const res = await fetch(`${API_URL}/blog/posts`);
+async function getBlogPosts(limit: number): Promise<BlogPost[]> {
+  const res = await fetch(`${API_URL}/blog/posts?limit=${limit}`);
   const json = await res.json();
   return json.blogPosts;
 }
