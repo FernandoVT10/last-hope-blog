@@ -18,9 +18,36 @@
     flex: 1;
     background: hsl(var(--hsl-black-light));
 
+    $cover-height: 200px;
+
+    & .cover-container {
+      position: relative;
+      width: 100%;
+      height: $cover-height;
+
+      &:before {
+        content: "Click To Read";
+        align-content: center;
+        text-align: center;
+        font-weight: bold;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, .5);
+        opacity: 0;
+        transition: opacity .3s;
+      }
+
+      &:hover:before {
+        opacity: 1;
+      }
+    }
+
     & .cover {
       width: 100%;
-      height: 200px;
+      height: $cover-height;
       object-fit: cover;
     }
 
@@ -30,7 +57,7 @@
       transition: .3s;
 
       &:hover {
-        color: gray;
+        color: hsl(var(--hsl-blue));
       }
     }
   }

@@ -34,11 +34,13 @@ function Home() {
       return (
         <div className={getClassName("blog-post")} key={blogPost.id}>
           <a href={`/blog/posts/${blogPost.id}`}>
-            <img
-              className={getClassName("cover")}
-              src={blogPost.cover}
-              alt="Blog Post Cover"
-            />
+            <div className={getClassName("cover-container")}>
+              <img
+                className={getClassName("cover")}
+                src={blogPost.cover}
+                alt="Blog Post Cover"
+              />
+            </div>
 
             <span className={getClassName("title")}>{blogPost.title}</span>
           </a>
