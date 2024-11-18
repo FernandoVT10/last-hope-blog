@@ -6,8 +6,11 @@ import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import CreateBlogPost from "./pages/CreateBlogPost";
 import Router from "./Router";
+import Notifications from "./Notifications";
 
 import "./index.scss";
+
+Notifications.init();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

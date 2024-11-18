@@ -1,0 +1,105 @@
+.notifications {
+  $alpha: 0.2;
+
+  $text-color: hsl(var(--hsl-white));
+  $bg-color: hsl(var(--hsl-black-light));
+
+  $success-text-color: hsl(var(--hsl-green));
+  $success-bg-color: hsla(var(--hsl-green), #{$alpha});
+
+  $loading-text-color: hsl(var(--hsl-blue));
+  $loading-bg-color: hsla(var(--hsl-blue), #{$alpha});
+
+  $error-text-color: hsl(var(--hsl-red));
+  $error-bg-color: hsla(var(--hsl-red), #{$alpha});
+
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  color: $text-color;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  overflow: hidden;
+
+  & .notification {
+    display: flex;
+    margin-top: 20px;
+    width: 300px;
+    background: $bg-color;
+    border-radius: 5px;
+    overflow: hidden;
+
+    &.success {
+      --n-text-accent: #{$success-text-color};
+      --n-icon-background: #{$success-bg-color};
+    }
+
+    &.error {
+      --n-text-accent: #{$error-text-color};
+      --n-icon-background: #{$error-bg-color};
+    }
+
+    &.loading {
+      --n-text-accent: #{$loading-text-color};
+      --n-icon-background: #{$loading-bg-color};
+
+      & .iconContainer .icon {
+        margin: 0;
+      }
+
+      & .body {
+        width: 100%;
+      }
+    }
+
+    &:nth-child(1) { margin: 0; }
+
+    & .iconContainer {
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--n-icon-background);
+      color: var(--n-text-accent);
+
+      & .icon {
+        margin-top: 7px;
+      }
+
+      & .spinner {
+        display: block;
+        border: solid 3px var(--n-text-accent);
+        border-radius: 50%;
+        border-top: solid 3px transparent;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s infinite linear;
+      }
+    }
+
+    & .body {
+      width: calc(100% - 40px);
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    & .closeButton {
+      background: transparent;
+      color: var(--n-text-accent);
+      padding: 0 10px;
+      border: none;
+      transition: .3s;
+
+      &:hover {
+        background: var(--n-icon-background);
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg) }
+
+  to { transform: rotate(360deg) }
+}
