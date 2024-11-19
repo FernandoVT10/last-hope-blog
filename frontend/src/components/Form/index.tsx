@@ -72,13 +72,14 @@ type ButtonProps = {
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
+  style?: "normal" | "danger" | "secondary";
 };
 
 export function Button(props: ButtonProps) {
   return (
     <button
       type={props.type}
-      className={getClassName("button", props.className)}
+      className={getClassName("button", props.style || "normal", props.className)}
       onClick={props.onClick}
       disabled={props.disabled}
     >

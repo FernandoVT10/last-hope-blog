@@ -1,0 +1,87 @@
+.modalWrapper {
+  $bg-color: hsl(var(--hsl-black));
+  $title-color: hsl(var(--hsl-blue));
+  $text-color: hsl(var(--hsl-white));
+  $accent-color: hsl(var(--hsl-blue));
+
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  opacity: 0;
+  background: rgba(0, 0, 0, .7);
+  visibility: hidden;
+  transition: .3s;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+
+    & .modalContainer {
+      & .modal {
+        transform: scale(1);
+      }
+    }
+  }
+
+  & .modalContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    height: fit-content;
+
+    & .modal {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      background: $bg-color;
+      border-radius: 5px;
+      transform: scale(0);
+      transition: .3s;
+
+      & .modalHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: solid 1px var(--border-dark);
+        padding: 0 20px;
+        padding-top: 20px;
+
+        & .title {
+          font-size: 18px;
+          color: $title-color;
+        }
+
+        & .closeButton {
+          padding: 0;
+          background: transparent;
+          border: none;
+          color: $text-color;
+          transition: .3s;
+
+          &:hover {
+            color: $accent-color;
+          }
+        }
+      }
+
+      & .modalBody {
+        padding: 20px;
+      }
+    }
+  }
+
+  & .clickableBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

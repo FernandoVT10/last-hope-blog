@@ -1,3 +1,12 @@
+.delete-post-modal {
+  display: flex;
+  column-gap: 20px;
+
+  & .btn {
+    flex: 1;
+  }
+}
+
 .blog-post {
   padding: 40px 0;
 
@@ -24,5 +33,13 @@
   & .content {
     margin-top: 20px;
     line-height: 2;
+  }
+
+  & .delete-btn {
+    background: hsl(var(--hsl-red-dark));
+
+    &:hover {
+      background: hsl(var(--hsl-red-darker));
+    }
   }
 }

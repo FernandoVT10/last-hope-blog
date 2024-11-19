@@ -36,14 +36,26 @@ async function createBlogPost(data: CreateBlogPostData): Promise<BlogPost> {
   });
 
   if(res.status !== 200)
-    throw new Error(`The server responded with status ${res.status}`);
+    throw new Error(`The server responded with status: ${res.status}`);
 
   const json = await res.json();
   return json.blogPost;
+}
+
+async function deleteBlogPost(blogPostId: number): Promise<void> {
+  const res = await fetch(`${API_URL}/blog/posts/${blogPostId}`, {
+    method: "DELETE",
+  });
+
+  if(res.status === 200)
+    return;
+
+  throw new Error(`The server responded with status: ${res.status}`);
 }
 
 export default {
   getBlogPosts,
   getBlogPost,
   createBlogPost,
+  deleteBlogPost,
 };

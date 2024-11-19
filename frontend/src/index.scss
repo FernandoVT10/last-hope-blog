@@ -8,6 +8,7 @@
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 
+  --hsl-black-lighter-2: 225, 10%, 20%;
   --hsl-black-lighter: 230, 15%, 15%;
   --hsl-black-light: 235, 20%, 10%;
   --hsl-black: 240, 30%, 5%;
@@ -22,6 +23,8 @@
   --hsl-green: 170, 15.7%, 63.7%;
 
   --hsl-red: 343, 81.2%, 74.9%;
+  --hsl-red-dark: 343, 75%, 35%;
+  --hsl-red-darker: 343, 75%, 30%;
 
   --fz-14: 14px;
   --fz-16: 16px;
