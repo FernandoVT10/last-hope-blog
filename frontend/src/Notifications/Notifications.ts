@@ -54,7 +54,7 @@ class Notification {
       ...this.getElementProps(),
       message: this.messsage,
       closeNotification: () => {
-        this.setState(NotificationState.FadingOut);
+        this.removeSelf();
       },
       hideCloseButton: this.type === NotificationType.Loading,
     });
@@ -130,6 +130,10 @@ class Notification {
       } break;
     }
   }
+
+  removeSelf() {
+    this.setState(NotificationState.FadingOut);
+  }
 }
 
 class Notifications {
@@ -168,6 +172,10 @@ class Notifications {
     for(const notification of this.notifications) {
       notification.update(dt);
     }
+  }
+
+  getById(id: number): Notification | null {
+    return this.notifications.find(n => n.id === id) || null;
   }
 }
 

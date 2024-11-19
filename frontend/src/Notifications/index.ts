@@ -51,7 +51,13 @@ function remove(id: number): boolean {
   if(!notifications)
     return false;
 
-  return notifications.remove(id);
+  const notification = notifications.getById(id);
+
+  if(!notification)
+    return false;
+
+  notification.removeSelf();
+  return true;
 }
 
 export default {
