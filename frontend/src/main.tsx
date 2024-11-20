@@ -12,6 +12,10 @@ import "./index.scss";
 
 Notifications.init();
 
+function Test() {
+  return <h1>Test</h1>;
+}
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Router
@@ -19,6 +23,7 @@ createRoot(document.getElementById("root")!).render(
         { path: "/", Component: Home },
         { path: "/blog/posts/:blogPostId", Component: BlogPost },
         { path: "/blog/create-post", Component: CreateBlogPost },
+        { path: "/blog/posts/:blogPostId/edit", Component: Test },
         { path: "*", Component: NotFound },
       ]}
     />

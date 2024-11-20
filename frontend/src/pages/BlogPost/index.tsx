@@ -69,13 +69,21 @@ function BlogPost(props: { blogPostId: string }) {
             dangerouslySetInnerHTML={{ __html: getContentHTML() }}
           ></div>
 
-          <Button
-            type="button"
-            style="danger"
-            onClick={deletePostModal.show}
-          >
-            Delete Post
-          </Button>
+          <div className={getClassName("actions-container")}>
+            <Button
+              type="button"
+              style="danger"
+              onClick={deletePostModal.show}
+            >
+              Delete Post
+            </Button>
+
+            <a href={`/blog/posts/${blogPostId}/edit`}>
+              <Button type="button">
+                Edit Post
+              </Button>
+            </a>
+          </div>
         </div>
       </PageWrapper>
     </>
