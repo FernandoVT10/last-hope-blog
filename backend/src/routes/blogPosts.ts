@@ -95,4 +95,16 @@ router.get("/:id", validateReq({ id: idValidator }), async (req, res, next) => {
   }
 });
 
+router.delete("/:id", validateReq({ id: idValidator}), async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id);
+
+    await BlogPostController.deleteById(id);
+
+    res.sendStatus(200);
+  } catch(e) {
+    next(e);
+  }
+});
+
 export default router;

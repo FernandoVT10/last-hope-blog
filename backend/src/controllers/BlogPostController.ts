@@ -22,6 +22,12 @@ async function saveCover(cover: Buffer): Promise<string> {
   return coverName;
 }
 
+async function deleteCover(coverName: string): Promise<void> {
+  const coverWithExt = `${coverName}.${BLOGPOST_COVER_EXT}`;
+  const fullPath = path.resolve(BLOGPOST_COVERS_DIR, coverWithExt);
+  await fs.promises.rm(fullPath);
+}
+
 function getCoverURL(coverName: string): string {
   return `${ASSETS_URL}/covers/${coverName}.${BLOGPOST_COVER_EXT}`;
 }
@@ -65,9 +71,21 @@ async function existsById(id: number): Promise<boolean> {
   return count > 0;
 }
 
+async function deleteById(id: number): Promise<void> {
+  const blogPost = await BlogPost.findByPk(id);
+
+  if(!blogPost)
+    throw new Error("Blog Post is null");
+
+  await deleteCover(blogPost.cover);
+
+  await blogPost.destroy();
+}
+
 export default {
   createOne,
   getAllWithURLCover,
   getByIdWithURLCover,
   existsById,
+  deleteById,
 };
