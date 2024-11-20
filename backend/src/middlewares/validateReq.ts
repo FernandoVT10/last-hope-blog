@@ -6,19 +6,22 @@ const DEFAULT_IN_VALUE = "body";
 
 type StringValidator = {
   type: "string";
+  required: boolean;
   maxLength?: number;
-  required?: boolean;
 };
 
 type NumberValidator = {
   type: "number";
+  required: boolean;
   in?: "body" | "params" | "query";
   min?: number;
-  required?: boolean;
   custom?: (val: number) => Promise<boolean>;
 };
 
-type ImageValidator = { type: "image" };
+type ImageValidator = {
+  type: "image"
+  required: boolean;
+};
 
 export type Validator = StringValidator | NumberValidator | ImageValidator;
 
@@ -69,8 +72,11 @@ async function validateNumber(req: Request, validator: NumberValidator, key: str
   }
 }
 
-async function validateImage(req: Request, key: string): Promise<void> {
-  if(!req.file) throw new Error(`${key} is required`);
+async function validateImage(req: Request, validator: Validator, key: string): Promise<void> {
+  if(!validator.required && !req.file)
+    return;
+
+  if(validator.required && !req.file) throw new Error(`${key} is required`);
 
   try {
     await sharp(req.file).stats();
@@ -88,7 +94,7 @@ async function validateValidator(req: Request, validator: Validator,  key: strin
       await validateNumber(req, validator, key);
     } break;
     case "image": {
-      await validateImage(req, key);
+      await validateImage(req, validator, key);
     } break;
     default: {
       console.error(new Error("This code should be unreachable"));

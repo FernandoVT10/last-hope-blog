@@ -14,7 +14,10 @@ const DEFAULT_LIMIT = 5;
 const router = Router();
 
 const createBlogPost: Validators = {
-  cover: { type: "image" },
+  cover: {
+    type: "image",
+    required: true,
+  },
   title: {
     type: "string",
     required: true,
@@ -100,6 +103,41 @@ router.delete("/:id", validateReq({ id: idValidator}), async (req, res, next) =>
     const id = parseInt(req.params.id);
 
     await BlogPostController.deleteById(id);
+
+    res.sendStatus(200);
+  } catch(e) {
+    next(e);
+  }
+});
+
+
+const updateBlogPost: Validators = {
+  cover: {
+    type: "image",
+    required: false,
+  },
+  id: idValidator,
+  title: {
+    type: "string",
+    required: false,
+    maxLength: MAX_BLOGPOST_TITLE_LENGTH,
+  },
+  content: {
+    type: "string",
+    required: false,
+    maxLength: MAX_BLOGPOST_CONTENT_LENGTH,
+  },
+};
+
+router.put("/:id", parseMultipart("cover", imageValidator), validateReq(updateBlogPost), async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id);
+
+    await BlogPostController.updateById(id, {
+      title: req.body.title || undefined,
+      content: req.body.content || undefined,
+      cover: req.file,
+    });
 
     res.sendStatus(200);
   } catch(e) {

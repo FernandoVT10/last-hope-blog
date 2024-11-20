@@ -28,6 +28,12 @@ async function deleteCover(coverName: string): Promise<void> {
   await fs.promises.rm(fullPath);
 }
 
+async function replaceCover(newCover: Buffer, prevCoverName: string): Promise<void> {
+  const coverWithExt = `${prevCoverName}.${BLOGPOST_COVER_EXT}`;
+  await fs.promises.mkdir(BLOGPOST_COVERS_DIR, { recursive: true });
+  await sharp(newCover).toFile(path.resolve(BLOGPOST_COVERS_DIR, coverWithExt));
+}
+
 function getCoverURL(coverName: string): string {
   return `${ASSETS_URL}/covers/${coverName}.${BLOGPOST_COVER_EXT}`;
 }
@@ -82,10 +88,33 @@ async function deleteById(id: number): Promise<void> {
   await blogPost.destroy();
 }
 
+type UpdateByIdData = {
+  title?: string;
+  content?: string;
+  cover?: Buffer;
+};
+
+async function updateById(id: number, data: UpdateByIdData): Promise<void> {
+  const blogPost = await BlogPost.findByPk(id);
+
+  if(!blogPost)
+    throw new Error("Blog Post is null");
+
+  if(data.cover) {
+    await replaceCover(data.cover, blogPost.cover);
+  }
+
+  await blogPost.update({
+    title: data.title,
+    content: data.content,
+  });
+}
+
 export default {
   createOne,
   getAllWithURLCover,
   getByIdWithURLCover,
   existsById,
   deleteById,
+  updateById,
 };
