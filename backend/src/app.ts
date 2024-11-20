@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import blogPosts from "./routes/blogPosts";
 import pages from "./routes/pages";
+import auth from "./routes/auth";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.get("/api/ok", (_, res) => {
 
 app.use(pages);
 
+app.use("/api", auth);
 app.use("/api/blog/posts", blogPosts);
 
 export default app;

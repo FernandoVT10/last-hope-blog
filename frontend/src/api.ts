@@ -62,8 +62,22 @@ async function updateBlogPost(blogPostId: number, data: UpdateBlogPostData): Pro
     throw new Error(`The server responded with status: ${res.status}`);
 }
 
+async function login(password: string): Promise<boolean> {
+  const res = await fetch(`${API_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+    body: JSON.stringify({ password }),
+  });
+
+  return res.status === 200;
+}
+
 export default {
   createBlogPost,
   deleteBlogPost,
   updateBlogPost,
+  login,
 };

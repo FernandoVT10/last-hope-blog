@@ -15,3 +15,9 @@ export const ASSETS_URL = "http://localhost:3000/assets";
 export const DATA_SYMBOL = "<!--data-->";
 
 export const HTML_PATH = path.resolve(__dirname, "../../build/index.html");
+
+export const PRODUCTION = process.env.NODE_ENV === "production";
+
+// TODO: get this password and jwt key from somewhere more secure :)
+export const PASSWORD = "secret";
+export const JWT_SECRET_KEY = "123";
