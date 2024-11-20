@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PageWrapper } from "@components/Layout";
 import { parseCssModule } from "@/utils/css";
 import { CoverSelector, MainForm } from "@/components/BlogPostForm";
 import { BlogPost } from "@/types";
 
-import NotFound from "../NotFound";
 import Notifications from "@/Notifications";
 import api, { UpdateBlogPostData } from "@/api";
 
@@ -18,11 +17,7 @@ type Data = {
   cover: File | null;
 };
 
-type FormProps = {
-  blogPost: BlogPost;
-};
-
-function Form({ blogPost }: FormProps) {
+function EditBlogPost({ blogPost }: { blogPost: BlogPost }) {
   const [data, setData] = useState<Data>({
     title: blogPost.title,
     content: blogPost.content,
@@ -98,36 +93,6 @@ function Form({ blogPost }: FormProps) {
       </div>
     </PageWrapper>
   );
-}
-
-function EditBlogPost(props: { blogPostId: string }) {
-  const [blogPost, setBlogPost] = useState<BlogPost | null>(null);
-  const blogPostId = parseInt(props.blogPostId);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const load = async () => {
-      try {
-        setBlogPost(await api.getBlogPost(blogPostId));
-      } catch {
-        // TODO: handle this error better :)
-        console.log("Error");
-      }
-
-      setLoading(false);
-    };
-
-    load();
-
-  }, []);
-
-  if(loading) return null;
-
-  if(!blogPost) {
-    return <NotFound/>
-  }
-
-  return <Form blogPost={blogPost}/>
 }
 
 export default EditBlogPost;

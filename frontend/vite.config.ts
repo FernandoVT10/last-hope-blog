@@ -6,6 +6,11 @@ import { defineConfig } from "vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: {
+    emptyOutDir: true,
+    outDir: path.resolve(__dirname, "../build/"),
+    assetsDir: "resources",
+  },
   server: {
     port: 3002,
   },

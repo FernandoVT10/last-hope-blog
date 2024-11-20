@@ -32,26 +32,6 @@ function testPaths(routePath: string, path: string): boolean {
   return true;
 }
 
-function getParams(routePath: string, path: string): Record<string, string> {
-  const splittedRoute = routePath.split("/")
-  const splittedPath = path.split("/");
-
-  const params: Record<string, string> = {};
-
-  // skip the first one because it's always empty
-  for(let i = 1; i < splittedRoute.length; i++) {
-    const routePart = splittedRoute[i];
-    const pathPart = splittedPath[i];
-
-    if(routePart.startsWith(":")) {
-      const varName = routePart.slice(1);
-      params[varName] = pathPart;
-    }
-  }
-
-  return params;
-}
-
 function getComponent(routes: Route[], path?: string): React.JSX.Element | null {
   if(!path)
     return null;
@@ -65,8 +45,16 @@ function getComponent(routes: Route[], path?: string): React.JSX.Element | null 
     }
 
     if(testPaths(route.path, path)) {
-      const params = getParams(route.path, path);
-      return <route.Component {...params}/>;
+      const dataEl = document.getElementById("data");
+
+      if(!dataEl) {
+        console.error("data element is null");
+        return null;
+      }
+
+      const data = JSON.parse(dataEl.textContent || "{}");
+
+      return <route.Component {...data}/>;
     }
   }
 

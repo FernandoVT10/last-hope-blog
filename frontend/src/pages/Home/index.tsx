@@ -1,34 +1,13 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { parseCssModule } from "@utils/css";
 import { PageWrapper } from "@/components/Layout";
 import { BlogPost } from "@/types";
 
 import styles from "./styles.module.scss";
-import api from "@/api";
 
 const getClassName = parseCssModule(styles);
 
-function Home() {
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const load = async () => {
-      setLoading(true);
-
-      try {
-        setBlogPosts(await api.getBlogPosts(3));
-      } catch {
-        // TODO: handle this error better :)
-        console.log("Error");
-      }
-
-      setLoading(false);
-    };
-
-    load();
-  }, []);
-
+function Home({ blogPosts }: { blogPosts: BlogPost[] }) {
   const getBlogPosts = () => {
     return blogPosts.map(blogPost => {
       return (
