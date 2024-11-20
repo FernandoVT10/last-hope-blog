@@ -39,5 +39,3 @@ function Home({ blogPosts }: { blogPosts: BlogPost[] }) {
 }
 
 export default Home;
-
-// TODO: make a placeholder meanwhile the data is loading

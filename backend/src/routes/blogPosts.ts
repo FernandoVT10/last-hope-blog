@@ -9,8 +9,6 @@ import parseMultipart, { imageValidator } from "../middlewares/parseMultipart";
 
 import BlogPostController from "../controllers/BlogPostController";
 
-const DEFAULT_LIMIT = 5;
-
 const router = Router();
 
 const createBlogPost: Validators = {
@@ -45,25 +43,6 @@ router.post(
   }
 );
 
-const getBlogPosts: Validators = {
-  limit: {
-    in: "query",
-    type: "number",
-    required: false,
-    min: 1,
-  }
-};
-
-router.get("/", validateReq(getBlogPosts), async (req, res, next) => {
-  try {
-    const limit = req.query.limit ? parseInt(req.query.limit as string) : DEFAULT_LIMIT;
-    const blogPosts = await BlogPostController.getAllWithURLCover(limit);
-    res.json({ blogPosts });
-  } catch(e) {
-    next(e);
-  }
-});
-
 const idValidator: Validator = {
   type: "number",
   in: "params",
@@ -85,17 +64,6 @@ const idValidator: Validator = {
     return true;
   },
 };
-
-router.get("/:id", validateReq({ id: idValidator }), async (req, res, next) => {
-  try {
-    const id = parseInt(req.params.id);
-
-    const blogPost = await BlogPostController.getByIdWithURLCover(id);
-    res.json({ blogPost });
-  } catch(e) {
-    next(e);
-  }
-});
 
 router.delete("/:id", validateReq({ id: idValidator}), async (req, res, next) => {
   try {

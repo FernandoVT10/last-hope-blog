@@ -11,3 +11,7 @@ export const BLOGPOST_COVERS_DIR = path.resolve(__dirname, "../assets/covers");
 export const BLOGPOST_COVER_EXT = "webp";
 
 export const ASSETS_URL = "http://localhost:3000/assets";
+
+export const DATA_SYMBOL = "<!--data-->";
+
+export const HTML_PATH = path.resolve(__dirname, "../../build/index.html");
