@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { PRODUCTION, PASSWORD, JWT_SECRET_KEY } from "../constants";
+import {
+  PRODUCTION,
+  PASSWORD,
+  JWT_SECRET_KEY,
+  TOKEN_COOKIE_NAME,
+} from "../constants";
 
 import jwt from "jsonwebtoken";
 
@@ -40,7 +45,7 @@ router.post("/login", async (req, res, next) => {
 
   try {
     const token = await getJWT();
-    res.cookie("token", token, {
+    res.cookie(TOKEN_COOKIE_NAME, token, {
       maxAge: FIFTEEN_DAYS_IN_MILLISECONDS,
       httpOnly: true,
       sameSite: "strict",
