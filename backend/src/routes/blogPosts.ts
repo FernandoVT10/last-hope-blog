@@ -70,7 +70,6 @@ const idValidator: Validator = {
   min: 1,
   required: true,
   custom: async (id) => {
-    // TODO: what if existsById throws? Handle that
     let exists: boolean;
 
     try {
