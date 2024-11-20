@@ -1,4 +1,3 @@
-// import { useEffect, useState } from "react";
 import { parseCssModule } from "@utils/css";
 import { PageWrapper } from "@/components/Layout";
 import { BlogPost } from "@/types";
