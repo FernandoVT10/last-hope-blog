@@ -1,0 +1,133 @@
+import { useEffect, useState } from "react";
+import { PageWrapper } from "@components/Layout";
+import { parseCssModule } from "@/utils/css";
+import { CoverSelector, MainForm } from "@/components/BlogPostForm";
+import { BlogPost } from "@/types";
+
+import NotFound from "../NotFound";
+import Notifications from "@/Notifications";
+import api, { UpdateBlogPostData } from "@/api";
+
+import styles from "./styles.module.scss";
+
+const getClassName = parseCssModule(styles);
+
+type Data = {
+  title: string;
+  content: string;
+  cover: File | null;
+};
+
+type FormProps = {
+  blogPost: BlogPost;
+};
+
+function Form({ blogPost }: FormProps) {
+  const [data, setData] = useState<Data>({
+    title: blogPost.title,
+    content: blogPost.content,
+    cover: null,
+  });
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit: React.FormEventHandler = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    const notificationId = Notifications.loading("Saving changes...");
+
+    try {
+      const updateData: UpdateBlogPostData = {};
+
+      if(data.title !== blogPost.title) {
+        updateData.title = data.title;
+      }
+
+      if(data.content !== blogPost.content) {
+        updateData.content = data.content;
+      }
+
+      if(data.cover) {
+        updateData.cover = data.cover;
+      }
+
+      await api.updateBlogPost(blogPost.id, updateData);
+
+      window.location.assign(`/blog/posts/${blogPost.id}`);
+    } catch(e) {
+      console.error(e);
+      Notifications.error("There was an error trying save changes");
+    }
+
+    Notifications.remove(notificationId);
+    setLoading(false);
+  };
+
+  const onChange = (val: string, key: string) => {
+    setData({
+      ...data,
+      [key]: val,
+    });
+  };
+
+  const setCover = (cover: File) => {
+    setData({
+      ...data,
+      cover
+    });
+  };
+
+  return (
+    <PageWrapper className={getClassName("edit-blog-post")}>
+      <div className={getClassName("container")}>
+        <h1 className={getClassName("title")}>Edit Blog Post</h1>
+
+        <CoverSelector
+          setCover={setCover}
+          initialPreviewImage={blogPost.cover}
+        />
+
+        <MainForm
+          onSubmit={onSubmit}
+          data={data}
+          onChange={onChange}
+          loading={loading}
+          btnText="Save Changes"
+        />
+      </div>
+    </PageWrapper>
+  );
+}
+
+function EditBlogPost(props: { blogPostId: string }) {
+  const [blogPost, setBlogPost] = useState<BlogPost | null>(null);
+  const blogPostId = parseInt(props.blogPostId);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        setBlogPost(await api.getBlogPost(blogPostId));
+      } catch {
+        // TODO: handle this error better :)
+        console.log("Error");
+      }
+
+      setLoading(false);
+    };
+
+    load();
+
+  }, []);
+
+  if(loading) return null;
+
+  if(!blogPost) {
+    return <NotFound/>
+  }
+
+  return <Form blogPost={blogPost}/>
+}
+
+export default EditBlogPost;

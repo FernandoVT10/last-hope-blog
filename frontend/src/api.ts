@@ -53,9 +53,35 @@ async function deleteBlogPost(blogPostId: number): Promise<void> {
   throw new Error(`The server responded with status: ${res.status}`);
 }
 
+export type UpdateBlogPostData = {
+  title?: string;
+  content?: string;
+  cover?: File;
+};
+
+async function updateBlogPost(blogPostId: number, data: UpdateBlogPostData): Promise<void> {
+  const formData = new FormData();
+
+  if(data.title)
+    formData.append("title", data.title);
+  if(data.content)
+    formData.append("content", data.content);
+  if(data.cover)
+    formData.append("cover", data.cover);
+
+  const res = await fetch(`${API_URL}/blog/posts/${blogPostId}`, {
+    method: "PUT",
+    body: formData,
+  });
+
+  if(res.status !== 200)
+    throw new Error(`The server responded with status: ${res.status}`);
+}
+
 export default {
   getBlogPosts,
   getBlogPost,
   createBlogPost,
   deleteBlogPost,
+  updateBlogPost,
 };
