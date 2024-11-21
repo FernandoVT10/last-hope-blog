@@ -8,9 +8,22 @@ import markdownIt from "markdown-it";
 import DeletePostModal from "./DeletePostModal";
 
 import styles from "./styles.module.scss";
+import { ClockIcon } from "@/icons";
 
 const getClassName = parseCssModule(styles);
 const md = markdownIt();
+
+const MONTH = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function getDate(dateStr: string): string {
+  const date = new Date(dateStr);
+
+  const day = date.getDate() + 1;
+  const month = MONTH[date.getMonth()];
+  const year = 2024;
+
+  return `${day} ${month} ${year}`;
+}
 
 function BlogPost({ blogPost }: { blogPost: BlogPostType }) {
   const deletePostModal = useModal();
@@ -30,6 +43,11 @@ function BlogPost({ blogPost }: { blogPost: BlogPostType }) {
             alt="Blog Post Cover"
             className={getClassName("cover")}
           />
+
+          <div className={getClassName("date-container")}>
+            <ClockIcon size={18} className={getClassName("icon")}/>
+            <span>{getDate(blogPost.createdAt)}</span>
+          </div>
         </div>
 
         <div className={getClassName("container")}>
