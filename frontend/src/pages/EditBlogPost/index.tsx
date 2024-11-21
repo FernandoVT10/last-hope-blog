@@ -8,6 +8,7 @@ import Notifications from "@/Notifications";
 import api, { UpdateBlogPostData } from "@/api";
 
 import styles from "./styles.module.scss";
+import NotFound from "@/components/NotFound";
 
 const getClassName = parseCssModule(styles);
 
@@ -18,6 +19,10 @@ type Data = {
 };
 
 function EditBlogPost({ blogPost }: { blogPost: BlogPost }) {
+  if(!blogPost) {
+    return <NotFound text="Blog post not found"/>;
+  }
+
   const [data, setData] = useState<Data>({
     title: blogPost.title,
     content: blogPost.content,

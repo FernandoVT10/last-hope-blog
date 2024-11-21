@@ -3,12 +3,13 @@ import { BlogPost as BlogPostType } from "@/types";
 import { parseCssModule } from "@/utils/css";
 import { useModal } from "@/components/Modal";
 import { Button } from "@/components/Form";
+import { ClockIcon } from "@/icons";
 
 import markdownIt from "markdown-it";
 import DeletePostModal from "./DeletePostModal";
+import NotFound from "@components/NotFound";
 
 import styles from "./styles.module.scss";
-import { ClockIcon } from "@/icons";
 
 const getClassName = parseCssModule(styles);
 const md = markdownIt();
@@ -26,6 +27,10 @@ function getDate(dateStr: string): string {
 }
 
 function BlogPost({ blogPost }: { blogPost: BlogPostType }) {
+  if(!blogPost) {
+    return <NotFound text="Blog post not found"/>;
+  }
+
   const deletePostModal = useModal();
 
   const getContentHTML = (): string => {

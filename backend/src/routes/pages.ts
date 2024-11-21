@@ -23,7 +23,8 @@ router.get("/", async (_, res, next) => {
 
 router.get("/blog/posts/:id", async (req, res, next) => {
   try {
-    const blogPost = await BlogPostController.getByIdWithURLCover(parseInt(req.params.id));
+    const id = parseInt(req.params.id) || 0;
+    const blogPost = await BlogPostController.getByIdWithURLCover(id);
     res.send(await getHTMLFile({ blogPost }));
   } catch(e) {
     next(e);
@@ -64,6 +65,4 @@ router.get("*", async (_, res, next) => {
   }
 });
 
-// TODO: pages like the blog post page and edit blog post page should show
-// some kind of page when there's no a post with the given id
 export default router;

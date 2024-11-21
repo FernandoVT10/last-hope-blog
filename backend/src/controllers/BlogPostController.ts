@@ -59,11 +59,11 @@ async function getAllWithURLCover(limit: number): Promise<BlogPost[]> {
   });
 }
 
-async function getByIdWithURLCover(id: number): Promise<BlogPost> {
+async function getByIdWithURLCover(id: number): Promise<BlogPost | null> {
   const blogPost = await BlogPost.findByPk(id);
 
   if(!blogPost)
-    throw new Error("Blog post is null");
+    return null;
 
   blogPost.cover = getCoverURL(blogPost.cover);
   return blogPost;
