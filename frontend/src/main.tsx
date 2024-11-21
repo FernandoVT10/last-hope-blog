@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { GlobalContext } from "./contexts";
 
 import Home from "./pages/Home";
 import BlogPost from "./pages/BlogPost";
@@ -15,17 +16,22 @@ import "./index.scss";
 
 Notifications.init();
 
+const el = document.getElementById("general-data");
+const generalData = JSON.parse(el?.textContent || "{}");
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Router
-      routes={[
-        { path: "/", Component: Home },
-        { path: "/blog/posts/:blogPostId", Component: BlogPost },
-        { path: "/blog/create-post", Component: CreateBlogPost },
-        { path: "/blog/posts/:blogPostId/edit", Component: EditBlogPost },
-        { path: "/login", Component: Login },
-        { path: "*", Component: Page404 },
-      ]}
-    />
+    <GlobalContext.Provider value={generalData}>
+      <Router
+        routes={[
+          { path: "/", Component: Home },
+          { path: "/blog/posts/:blogPostId", Component: BlogPost },
+          { path: "/blog/create-post", Component: CreateBlogPost },
+          { path: "/blog/posts/:blogPostId/edit", Component: EditBlogPost },
+          { path: "/login", Component: Login },
+          { path: "*", Component: Page404 },
+        ]}
+      />
+    </GlobalContext.Provider>
   </StrictMode>,
 );
