@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { authorizeApi } from "../middlewares/authorize";
 import {
   MAX_BLOGPOST_CONTENT_LENGTH,
   MAX_BLOGPOST_TITLE_LENGTH
@@ -30,6 +31,7 @@ const createBlogPost: Validators = {
 
 router.post(
   "/",
+  authorizeApi(),
   parseMultipart("cover", imageValidator),
   validateReq(createBlogPost),
   async (req, res, next) => {
@@ -65,17 +67,22 @@ const idValidator: Validator = {
   },
 };
 
-router.delete("/:id", validateReq({ id: idValidator}), async (req, res, next) => {
-  try {
-    const id = parseInt(req.params.id);
+router.delete(
+  "/:id",
+  authorizeApi(),
+  validateReq({ id: idValidator}),
+  async (req, res, next) => {
+    try {
+      const id = parseInt(req.params.id);
 
-    await BlogPostController.deleteById(id);
+      await BlogPostController.deleteById(id);
 
-    res.sendStatus(200);
-  } catch(e) {
-    next(e);
+      res.sendStatus(200);
+    } catch(e) {
+      next(e);
+    }
   }
-});
+);
 
 
 const updateBlogPost: Validators = {
@@ -96,20 +103,26 @@ const updateBlogPost: Validators = {
   },
 };
 
-router.put("/:id", parseMultipart("cover", imageValidator), validateReq(updateBlogPost), async (req, res, next) => {
-  try {
-    const id = parseInt(req.params.id);
+router.put(
+  "/:id",
+  authorizeApi(),
+  parseMultipart("cover", imageValidator),
+  validateReq(updateBlogPost),
+  async (req, res, next) => {
+    try {
+      const id = parseInt(req.params.id);
 
-    await BlogPostController.updateById(id, {
-      title: req.body.title || undefined,
-      content: req.body.content || undefined,
-      cover: req.file,
-    });
+      await BlogPostController.updateById(id, {
+        title: req.body.title || undefined,
+        content: req.body.content || undefined,
+        cover: req.file,
+      });
 
-    res.sendStatus(200);
-  } catch(e) {
-    next(e);
+      res.sendStatus(200);
+    } catch(e) {
+      next(e);
+    }
   }
-});
+);
 
 export default router;

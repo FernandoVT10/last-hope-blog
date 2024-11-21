@@ -5,3 +5,5 @@ build
 db.sqlite
 
 assets
+
+.env
