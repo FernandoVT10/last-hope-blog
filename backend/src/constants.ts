@@ -19,7 +19,6 @@ export const SEQUELIZE_LOGGING = true;
 export const ASSETS_URL = "http://localhost:3000/assets";
 
 export const HTML_PATH = path.resolve(__dirname, "../../build/index.html");
-export const DATA_SYMBOL = "<!--data-->";
 
 export const PRODUCTION = process.env.NODE_ENV === "production";
 

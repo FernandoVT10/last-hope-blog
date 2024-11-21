@@ -26,7 +26,7 @@ function getDate(dateStr: string): string {
   return `${day} ${month} ${year}`;
 }
 
-function BlogPost({ blogPost }: { blogPost: BlogPostType }) {
+function BlogPost({ blogPost }: { blogPost: BlogPostType | null }) {
   if(!blogPost) {
     return <NotFound text="Blog post not found"/>;
   }
