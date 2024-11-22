@@ -1,3 +1,5 @@
+@use "@/styles/variables" as *;
+
 .main-form {
   & .input-group {
     margin-top: 20px;
@@ -69,7 +71,7 @@
     align-items: center;
     border: dashed 3px hsla(var(--hsl-white), 0.5);
     font-weight: bold;
-    font-size: var(--fz-20);
+    font-size: var(--fz-16);
     transition: .3s;
 
     &:hover {
@@ -77,5 +79,9 @@
       color: hsl(var(--hsl-blue));
       background: hsla(var(--hsl-blue), 0.2);
     }
+  }
+
+  @media #{$laptop} {
+    & .no-preview { font-size: var(--fz-20) }
   }
 }

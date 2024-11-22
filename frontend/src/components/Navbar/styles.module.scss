@@ -1,37 +1,123 @@
+@use "@/styles/variables" as *;
+
 $navbar-height: 70px;
 
 .navbar-wrapper {
   height: $navbar-height;
   display: flex;
   justify-content: center;
-  background: hsl(var(--hsl-black-light));
 }
 
 .navbar {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   max-width: 1200px;
+  padding: 0 20px;
+  background: hsl(var(--hsl-black-light));
+  z-index: 2;
+
+  & .bg {
+    position: fixed;
+    z-index: -1;
+    top: $navbar-height;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .5);
+    visibility: hidden;
+  }
+
+  &.active {
+    & .bg {
+      visibility: visible;
+    }
+
+    & .links {
+      max-height: 500px;
+      border-color: hsl(var(--hsl-white-dark));
+    }
+
+    & .btn {
+      color: hsl(var(--hsl-blue));
+      border-color: hsl(var(--hsl-blue));
+      background: hsl(var(--hsl-black-lighter));
+    }
+  }
 
   & .title {
     font-size: var(--fz-25);
     color: hsl(var(--hsl-white-dark));
   }
 
-  & .link, & .title {
-    transition: color .3s;
+  & .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(var(--hsl-white-dark));
+    background: hsl(var(--hsl-black-light));
+    border: solid 1px #303030;
+    width: 50px;
+    height: 40px;
+    transition: .3s;
+    border-radius: 5px;
 
     &:hover {
-      color: hsl(var(--hsl-blue));
+      background: hsl(var(--hsl-black-lighter));
     }
   }
 
   & .links {
-    display: flex;
-    column-gap: 20px;
+    position: absolute;
+    top: $navbar-height;
+    left: 0;
+    width: 100%;
+    max-height: 0;
     list-style: none;
     margin: 0;
     padding: 0;
+    border-top: solid 1px transparent;
+    overflow: hidden;
+    transition: .1s;
+
+    & .link {
+      display: block;
+      padding: 20px;
+      background: hsl(var(--hsl-black-light));
+      transition: background .3s;
+
+      &:hover {
+        background: hsl(var(--hsl-black-lighter));
+      }
+    }
+  }
+
+  @media #{$laptop} {
+    & .bg {
+      display: none;
+    }
+
+    & .btn {
+      display: none;
+    }
+
+    & .links {
+      position: relative;
+      top: 0;
+      display: flex;
+      column-gap: 20px;
+      max-height: none;
+      border: none;
+      width: auto;
+      transition: none;
+
+      & .link {
+        display: inline-block;
+        padding: 0;
+        background: transparent;
+      }
+    }
   }
 }
