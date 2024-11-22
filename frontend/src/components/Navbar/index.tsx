@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import { GlobalContext } from "@/contexts";
 import { parseCssModule } from "@/utils/css";
+import { MenuIcon } from "@/icons";
+import icon from "../../../resources/icon.svg";
 
 import styles from "./styles.module.scss";
-import { MenuIcon } from "@/icons";
 
 const getClassName = parseCssModule(styles);
 
@@ -20,7 +21,8 @@ function Navbar({ title }: { title?: string }) {
           onClick={() => setIsActive(false)}
         ></div>
 
-        <a className={getClassName("link")} href="/">
+        <a className={getClassName("link-title")} href="/">
+          <img src={icon} alt="Icon" width="30" height="30"/>
           <h1 className={getClassName("title")}>{ title }</h1>
         </a>
 

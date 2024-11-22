@@ -48,9 +48,15 @@ $navbar-height: 70px;
     }
   }
 
-  & .title {
-    font-size: var(--fz-25);
-    color: hsl(var(--hsl-white-dark));
+  & .link-title {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+
+    & .title {
+      font-size: var(--fz-20);
+      color: hsl(var(--hsl-white));
+    }
   }
 
   & .btn {
