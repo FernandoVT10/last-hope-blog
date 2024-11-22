@@ -1,6 +1,9 @@
 @use "@/styles/variables" as *;
 
 $navbar-height: 70px;
+/* This variable represents the max height that the menu containings the links have
+ max-height is used instead of height because height cannot be animated*/
+$max-mobile-menu-height: 300px;
 
 .navbar-wrapper {
   height: $navbar-height;
@@ -37,7 +40,7 @@ $navbar-height: 70px;
     }
 
     & .links {
-      max-height: 500px;
+      max-height: $max-mobile-menu-height;
       border-color: hsl(var(--hsl-white-dark));
     }
 
@@ -87,7 +90,7 @@ $navbar-height: 70px;
     padding: 0;
     border-top: solid 1px transparent;
     overflow: hidden;
-    transition: .1s;
+    transition: .3s;
 
     & .link {
       display: block;
