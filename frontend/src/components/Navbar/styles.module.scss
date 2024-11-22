@@ -6,6 +6,7 @@ $navbar-height: 70px;
   height: $navbar-height;
   display: flex;
   justify-content: center;
+  background: hsl(var(--hsl-black-light));
 }
 
 .navbar {
