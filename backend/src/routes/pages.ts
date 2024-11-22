@@ -66,6 +66,15 @@ router.get("/login", async (req, res, next) => {
   }
 });
 
+router.get("/blog", async (req, res, next) => {
+  try {
+    const blogPosts = await BlogPostController.getAllWithURLCover(10);
+    res.send(await getHTMLFile(req, { blogPosts }));
+  } catch(e) {
+    next(e);
+  }
+});
+
 router.get("*", async (req, res, next) => {
   try {
     // react handles it and shows a 404 page
