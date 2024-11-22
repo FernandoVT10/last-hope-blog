@@ -4,6 +4,7 @@ import { parseCssModule } from "@/utils/css";
 import { MainForm, CoverSelector } from "@/components/BlogPostForm";
 
 import Notifications from "@/Notifications";
+import Navbar from "@/components/Navbar";
 
 import styles from "./styles.module.scss";
 import api from "@/api";
@@ -68,21 +69,25 @@ function CreateBlogPost() {
   };
 
   return (
-    <PageWrapper className={getClassName("create-blog-post")}>
-      <div className={getClassName("container")}>
-        <h1 className={getClassName("title")}>Create Blog Post</h1>
+    <>
+      <Navbar/>
 
-        <CoverSelector setCover={setCover}/>
+      <PageWrapper className={getClassName("create-blog-post")}>
+        <div className={getClassName("container")}>
+          <h1 className={getClassName("title")}>Create Blog Post</h1>
 
-        <MainForm
-          onSubmit={onSubmit}
-          data={data}
-          onChange={onChange}
-          loading={loading}
-          btnText="Create Post"
-        />
-      </div>
-    </PageWrapper>
+          <CoverSelector setCover={setCover}/>
+
+          <MainForm
+            onSubmit={onSubmit}
+            data={data}
+            onChange={onChange}
+            loading={loading}
+            btnText="Create Post"
+          />
+        </div>
+      </PageWrapper>
+    </>
   );
 }
 

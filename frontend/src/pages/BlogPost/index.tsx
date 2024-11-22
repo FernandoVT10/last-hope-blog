@@ -11,6 +11,7 @@ import { formatDate } from "@/utils/formatters";
 import markdownIt from "markdown-it";
 import DeletePostModal from "./DeletePostModal";
 import NotFound from "@components/NotFound";
+import Navbar from "@/components/Navbar";
 
 import styles from "./styles.module.scss";
 
@@ -56,6 +57,8 @@ function BlogPost({ blogPost }: { blogPost: BlogPostType | null }) {
   return (
     <>
       <DeletePostModal modal={deletePostModal} blogPostId={blogPost.id}/>
+
+      <Navbar/>
 
       <PageWrapper className={getClassName("blog-post")}>
         <div className={getClassName("cover-container")}>

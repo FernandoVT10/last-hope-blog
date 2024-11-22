@@ -2,6 +2,8 @@ import { parseCssModule } from "@utils/css";
 import { PageWrapper } from "@/components/Layout";
 import { BlogPost } from "@/types";
 
+import Navbar from "@components/Navbar";
+
 import styles from "./styles.module.scss";
 
 const getClassName = parseCssModule(styles);
@@ -28,12 +30,15 @@ function Home({ blogPosts }: { blogPosts: BlogPost[] }) {
   };
 
   return (
-    <PageWrapper className={getClassName("home")}>
-      <h3 className={getClassName("subtitle")}>Recent Blog Posts</h3>
-      <div className={getClassName("blog-posts")}>
-        {getBlogPosts()}
-      </div>
-    </PageWrapper>
+    <>
+      <Navbar title="Fernando's Blog"/>
+      <PageWrapper className={getClassName("home")}>
+        <h3 className={getClassName("subtitle")}>Recent Blog Posts</h3>
+        <div className={getClassName("blog-posts")}>
+          {getBlogPosts()}
+        </div>
+      </PageWrapper>
+    </>
   );
 }
 

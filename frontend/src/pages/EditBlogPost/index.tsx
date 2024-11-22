@@ -7,8 +7,10 @@ import { BlogPost } from "@/types";
 import Notifications from "@/Notifications";
 import api, { UpdateBlogPostData } from "@/api";
 
-import styles from "./styles.module.scss";
 import NotFound from "@/components/NotFound";
+import Navbar from "@/components/Navbar";
+
+import styles from "./styles.module.scss";
 
 const getClassName = parseCssModule(styles);
 
@@ -79,24 +81,28 @@ function EditBlogPost({ blogPost }: { blogPost: BlogPost }) {
   };
 
   return (
-    <PageWrapper className={getClassName("edit-blog-post")}>
-      <div className={getClassName("container")}>
-        <h1 className={getClassName("title")}>Edit Blog Post</h1>
+    <>
+      <Navbar/>
 
-        <CoverSelector
-          setCover={setCover}
-          initialPreviewImage={blogPost.cover}
-        />
+      <PageWrapper className={getClassName("edit-blog-post")}>
+        <div className={getClassName("container")}>
+          <h1 className={getClassName("title")}>Edit Blog Post</h1>
 
-        <MainForm
-          onSubmit={onSubmit}
-          data={data}
-          onChange={onChange}
-          loading={loading}
-          btnText="Save Changes"
-        />
-      </div>
-    </PageWrapper>
+          <CoverSelector
+            setCover={setCover}
+            initialPreviewImage={blogPost.cover}
+          />
+
+          <MainForm
+            onSubmit={onSubmit}
+            data={data}
+            onChange={onChange}
+            loading={loading}
+            btnText="Save Changes"
+          />
+        </div>
+      </PageWrapper>
+    </>
   );
 }
 

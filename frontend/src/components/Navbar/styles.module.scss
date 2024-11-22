@@ -1,0 +1,37 @@
+$navbar-height: 70px;
+
+.navbar-wrapper {
+  height: $navbar-height;
+  display: flex;
+  justify-content: center;
+  background: hsl(var(--hsl-black-light));
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+
+  & .title {
+    font-size: var(--fz-25);
+    color: hsl(var(--hsl-white-dark));
+  }
+
+  & .link, & .title {
+    transition: color .3s;
+
+    &:hover {
+      color: hsl(var(--hsl-blue));
+    }
+  }
+
+  & .links {
+    display: flex;
+    column-gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
