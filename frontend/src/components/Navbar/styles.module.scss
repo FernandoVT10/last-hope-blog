@@ -1,6 +1,5 @@
 @use "@/styles/variables" as *;
 
-$navbar-height: 70px;
 /* This variable represents the max height that the menu containings the links have
  max-height is used instead of height because height cannot be animated*/
 $max-mobile-menu-height: 300px;
@@ -10,7 +9,7 @@ $max-mobile-menu-height: 300px;
   height: $navbar-height;
   display: flex;
   justify-content: center;
-  background: url(/resources/navbar-bg.png);
+  background: url(/resources/navbar-bg.webp);
   background-repeat: repeat-x;
   background-size: cover cover;
 
@@ -24,6 +23,14 @@ $max-mobile-menu-height: 300px;
     background: hsla(var(--hsl-black), 0.8);
     background: linear-gradient(hsla(var(--hsl-black), 0.6), hsla(var(--hsl-black), 0.8));
   }
+
+  &.no-background {
+    background: transparent;
+
+    &:before {
+      background: transparent;
+    }
+  }
 }
 
 .navbar {
@@ -34,7 +41,7 @@ $max-mobile-menu-height: 300px;
   width: 100%;
   max-width: 1200px;
   padding: 0 20px;
-  z-index: 2;
+  z-index: 5;
 
   & .bg {
     position: fixed;

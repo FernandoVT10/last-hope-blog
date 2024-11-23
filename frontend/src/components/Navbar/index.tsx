@@ -8,13 +8,13 @@ import styles from "./styles.module.scss";
 
 const getClassName = parseCssModule(styles);
 
-function Navbar({ title }: { title?: string }) {
+function Navbar({ title, style }: { title?: string, style?: "no-background" }) {
   const [isActive, setIsActive] = useState(false);
 
   const globalContext = useContext(GlobalContext);
 
   return (
-    <div className={getClassName("navbar-wrapper")}>
+    <div className={getClassName("navbar-wrapper", style)}>
       <nav className={getClassName("navbar", { active: isActive })}>
         <div
           className={getClassName("bg")}
