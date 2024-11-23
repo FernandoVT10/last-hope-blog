@@ -1,7 +1,14 @@
 import { parseCssModule } from "@utils/css";
 import { PageWrapper } from "@/components/Layout";
 import { BlogPost } from "@/types";
-import { TwitterIcon, GithubIcon, LinkedinIcon } from "@/icons";
+import {
+  TwitterIcon,
+  GithubIcon,
+  LinkedinIcon,
+  CodeIcon,
+  WorldIcon,
+  SquaresIcon,
+} from "@/icons";
 
 import Navbar from "@components/Navbar";
 
@@ -9,7 +16,23 @@ import styles from "./styles.module.scss";
 
 const getClassName = parseCssModule(styles);
 
+const TECHNOLOGIES = [
+  "React", "Node.js", "Typescript", "HTML/CSS",
+  "Sql/NoSql", "Linux", "Python",
+];
+
 function Home({ blogPosts }: { blogPosts: BlogPost[] }) {
+  const getTechnologies = () => {
+    return TECHNOLOGIES.map(tech => {
+      return (
+        <>
+          <span>{ tech }</span>
+          {", "}
+        </>
+      );
+    });
+  };
+
   const getBlogPosts = () => {
     return blogPosts.map(blogPost => {
       return (
@@ -66,9 +89,34 @@ function Home({ blogPosts }: { blogPosts: BlogPost[] }) {
       </section>
 
       <PageWrapper className={getClassName("home")}>
+        <section className={getClassName("cards-container")}>
+          <div className={getClassName("card")}>
+            <CodeIcon size={40} className={getClassName("icon")}/>
+            <p className={getClassName("name")}>Technologies</p>
+            <p className={getClassName("details")}>
+              I can use {getTechnologies()}and more.
+            </p>
+          </div>
 
-        <section>
-          <h3 className={getClassName("subtitle")}>Recent Blog Posts</h3>
+          <div className={getClassName("card")}>
+            <WorldIcon size={40} className={getClassName("icon")}/>
+            <p className={getClassName("name")}>Languages</p>
+            <p className={getClassName("details")}>
+              Spanish is my native language, and I have a B1 level of English.
+            </p>
+          </div>
+
+          <div className={getClassName("card")}>
+            <SquaresIcon size={40} className={getClassName("icon")}/>
+            <p className={getClassName("name")}>Projects</p>
+            <p className={getClassName("details")}>
+              You can click <a href="/projects" className={getClassName("link")}>here</a> to see my projects.
+            </p>
+          </div>
+        </section>
+
+        <section className={getClassName("blog-posts-section")}>
+          <h3 className={getClassName("subtitle")}>Posts from my blog</h3>
           <div className={getClassName("blog-posts")}>
             {getBlogPosts()}
           </div>

@@ -78,6 +78,40 @@
 }
 
 .home {
+  & .link {
+    text-decoration: underline;
+    transition: .3s;
+
+    &:hover { color: hsl(var(--hsl-blue)) }
+  }
+
+  & .cards-container {
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+    row-gap: 40px;
+
+    & .card {
+      flex: 1;
+      padding: 20px;
+      text-align: center;
+      background: hsl(var(--hsl-black-light));
+
+      & .name {
+        font-size: var(--fz-20);
+        font-weight: bold;
+      }
+
+      & .details {
+        margin-top: 10px;
+
+        & span {
+          color: hsl(var(--hsl-blue));
+        }
+      }
+    }
+  }
+
   & .subtitle {
     font-size: var(--fz-20);
   }
@@ -139,8 +173,16 @@
     }
   }
 
+  & .blog-posts-section {
+    margin-top: 40px;
+  }
 
   @media #{$laptop} {
+    & .cards-container {
+      column-gap: 40px;
+      flex-direction: row;
+    }
+
     & .blog-posts {
       flex-direction: row;
       column-gap: 20px;
