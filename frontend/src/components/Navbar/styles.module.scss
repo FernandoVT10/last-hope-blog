@@ -139,6 +139,12 @@ $max-mobile-menu-height: 300px;
         display: inline-block;
         padding: 0;
         background: transparent;
+        transition: color .3s;
+
+        &:hover {
+          background: transparent;
+          color: hsl(var(--hsl-blue));
+        }
       }
     }
   }
