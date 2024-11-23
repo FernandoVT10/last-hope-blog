@@ -4,7 +4,7 @@ import { GlobalContext } from "./contexts";
 
 import Home from "./pages/Home";
 import BlogPost from "./pages/BlogPost";
-import Page404 from "./pages/404";
+import Page404 from "./pages/Page404";
 import CreateBlogPost from "./pages/CreateBlogPost";
 import EditBlogPost from "./pages/EditBlogPost";
 import Login from "./pages/Login";

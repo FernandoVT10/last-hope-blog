@@ -6,10 +6,23 @@ $navbar-height: 70px;
 $max-mobile-menu-height: 300px;
 
 .navbar-wrapper {
+  position: relative;
   height: $navbar-height;
   display: flex;
   justify-content: center;
-  background: hsl(var(--hsl-black-light));
+  background: url(/resources/navbar-bg.png);
+  background-repeat: repeat-x;
+  background-size: cover cover;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: hsla(var(--hsl-black), 0.8);
+  }
 }
 
 .navbar {
@@ -20,7 +33,6 @@ $max-mobile-menu-height: 300px;
   width: 100%;
   max-width: 1200px;
   padding: 0 20px;
-  background: hsl(var(--hsl-black-light));
   z-index: 2;
 
   & .bg {

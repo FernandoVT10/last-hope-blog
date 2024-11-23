@@ -6,18 +6,17 @@ import styles from "./styles.module.scss";
 
 const getClassName = parseCssModule(styles);
 
-function NotFound({ text }: { text: string }) {
+function Page404() {
   return (
     <>
       <Navbar/>
 
-      <div className={getClassName("not-found")}>
-        <h2 className={getClassName("text")}>{ text }</h2>
+      <div className={getClassName("page-404")}>
+        <h1 className={getClassName("code")}>404</h1>
+        <h2 className={getClassName("text")}>Page Not Found</h2>
       </div>
     </>
   );
 }
 
-// TODO: make this better
-
-export default NotFound;
+export default Page404;

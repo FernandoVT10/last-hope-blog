@@ -1,0 +1,18 @@
+.page-404 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 10px;
+  height: 300px;
+
+  & .code {
+    font-size: var(--fz-35);
+    color: hsl(var(--hsl-blue));
+  }
+
+  & .text {
+    font-size: var(--fz-20);
+    color: hsl(var(--hsl-blue));
+  }
+}
