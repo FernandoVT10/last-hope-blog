@@ -42,6 +42,7 @@ type TextAreaProps = {
   maxLength: number;
   className?: string;
   required?: boolean;
+  id?: string;
 };
 
 export function TextArea(props: TextAreaProps) {
@@ -56,6 +57,7 @@ export function TextArea(props: TextAreaProps) {
       </span>
 
       <textarea
+        id={props.id}
         className={getClassName("textarea", props.className)}
         value={props.value}
         onChange={handleOnChange}
@@ -85,5 +87,22 @@ export function Button(props: ButtonProps) {
     >
       {props.children}
     </button>
+  );
+}
+
+type LabelProps = {
+  htmlFor: string;
+  children: React.ReactNode[] | React.ReactNode | string;
+  className?: string;
+};
+
+export function Label(props: LabelProps) {
+  return (
+    <label
+      className={getClassName("label", props.className)}
+      htmlFor={props.htmlFor}
+    >
+      {props.children}
+    </label>
   );
 }

@@ -13,6 +13,23 @@ function Navbar({ title, style }: { title?: string, style?: "no-background" }) {
 
   const globalContext = useContext(GlobalContext);
 
+  const getAdminLinks = () => {
+    if(!globalContext.isAuthenticated)
+      return null;
+
+    return (
+      <>
+        <li className={getClassName("link-container")}>
+          <a className={getClassName("link")} href="/blog/create-post">Create Post</a>
+        </li>
+
+        <li className={getClassName("link-container")}>
+          <a className={getClassName("link")} href="/projects/create">Create Project</a>
+        </li>
+      </>
+    );
+  };
+
   return (
     <div className={getClassName("navbar-wrapper", style)}>
       <nav className={getClassName("navbar", { active: isActive })}>
@@ -46,11 +63,7 @@ function Navbar({ title, style }: { title?: string, style?: "no-background" }) {
             <a className={getClassName("link")} href="/projects">Projects</a>
           </li>
 
-          {globalContext.isAuthenticated && (
-            <li className={getClassName("link-container")}>
-              <a className={getClassName("link")} href="/blog/create-post">Create Post</a>
-            </li>
-          )}
+          {getAdminLinks()}
         </ul>
       </nav>
     </div>

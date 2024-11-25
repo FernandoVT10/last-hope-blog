@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PageWrapper } from "@components/Layout";
 import { parseCssModule } from "@/utils/css";
-import { CoverSelector, MainForm } from "@/components/BlogPostForm";
+import { MainForm } from "@/components/BlogPostForm";
 import { BlogPost } from "@/types";
 
 import Notifications from "@/Notifications";
@@ -9,6 +9,7 @@ import api, { UpdateBlogPostData } from "@/api";
 
 import NotFound from "@/components/NotFound";
 import Navbar from "@/components/Navbar";
+import CoverSelector from "@components/CoverSelector";
 
 import styles from "./styles.module.scss";
 

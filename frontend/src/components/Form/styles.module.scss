@@ -76,3 +76,9 @@ $border-color: hsl(var(--hsl-blue));
     color: hsl(var(--hsl-white-dark));
   }
 }
+
+.label {
+  color: var(--hsl-gray-light);
+  font-size: 14px;
+  font-weight: bold;
+}

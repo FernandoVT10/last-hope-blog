@@ -75,9 +75,34 @@ async function login(password: string): Promise<boolean> {
   return res.status === 200;
 }
 
+type CreateProjectData = {
+  name: string;
+  description: string;
+  link: string;
+  cover: File;
+};
+
+async function createProject(data: CreateProjectData): Promise<void> {
+  const formData = new FormData();
+
+  formData.append("name", data.name);
+  formData.append("description", data.description);
+  formData.append("link", data.link);
+  formData.append("cover", data.cover);
+
+  const res = await fetch(`${API_URL}/projects`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if(res.status !== 200)
+    throw new Error(`The server responded with status: ${res.status}`);
+}
+
 export default {
   createBlogPost,
   deleteBlogPost,
   updateBlogPost,
   login,
+  createProject,
 };

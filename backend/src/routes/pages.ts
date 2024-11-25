@@ -79,6 +79,14 @@ router.get("/blog", async (req, res, next) => {
   }
 });
 
+router.get("/projects/create", async (req, res, next) => {
+  try {
+    res.send(await getHTMLFile(req, "Create Project"));
+  } catch(e) {
+    next(e);
+  }
+});
+
 router.get("*", async (req, res, next) => {
   try {
     // react handles it and shows a 404 page

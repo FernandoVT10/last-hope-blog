@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { PageWrapper } from "@/components/Layout";
 import { parseCssModule } from "@/utils/css";
-import { MainForm, CoverSelector } from "@/components/BlogPostForm";
+import { MainForm } from "@/components/BlogPostForm";
 
+import CoverSelector from "@components/CoverSelector";
 import Notifications from "@/Notifications";
 import Navbar from "@/components/Navbar";
 
