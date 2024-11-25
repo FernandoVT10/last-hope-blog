@@ -7,14 +7,16 @@ config({
   path: ENV_FILE_PATH,
 });
 
+export const ASSETS_DIR = path.resolve(__dirname, "../assets");
+
 export const MAX_BLOGPOST_TITLE_LENGTH = 100;
 export const MAX_BLOGPOST_CONTENT_LENGTH = 2000;
-export const BLOGPOST_COVERS_DIR = path.resolve(__dirname, "../assets/covers/blog");
+export const BLOGPOST_COVERS_DIR = path.resolve(ASSETS_DIR, "covers/blog");
 
 export const MAX_PROJECT_NAME_LENGTH = 100;
 export const MAX_PROJECT_DESCRIPTION_LENGTH = 500;
 export const MAX_PROJECT_LINK_LENGTH = 200;
-export const PROJECT_COVERS_DIR = path.resolve(__dirname, "../assets/covers/projects");
+export const PROJECT_COVERS_DIR = path.resolve(ASSETS_DIR, "covers/projects");
 
 export const PORT = 3000;
 

@@ -1,10 +1,11 @@
 import fs from "fs";
 import BlogPostController from "../controllers/BlogPostController";
+import AuthController from "../controllers/AuthController";
+import ProjectController from "../controllers/ProjectController";
 
 import { Router, Request } from "express";
 import { HTML_PATH } from "../constants";
 import { authorizePage } from "../middlewares/authorize";
-import AuthController from "../controllers/AuthController";
 
 const DATA_SYMBOL = "<!--data-->";
 const GENERAL_DATA_SYMBOL = "<!--general-data-->";
@@ -82,6 +83,15 @@ router.get("/blog", async (req, res, next) => {
 router.get("/projects/create", async (req, res, next) => {
   try {
     res.send(await getHTMLFile(req, "Create Project"));
+  } catch(e) {
+    next(e);
+  }
+});
+
+router.get("/projects", async (req, res, next) => {
+  try {
+    const projects = await ProjectController.getAllWithURLCover();
+    res.send(await getHTMLFile(req, "Create Project", { projects }));
   } catch(e) {
     next(e);
   }

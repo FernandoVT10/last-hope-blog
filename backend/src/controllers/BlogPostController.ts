@@ -4,7 +4,7 @@ import path from "path";
 import ImageController from "./ImageController";
 
 import { BlogPost } from "../models";
-import { BLOGPOST_COVERS_DIR, ASSETS_URL } from "../constants";
+import { BLOGPOST_COVERS_DIR } from "../constants";
 
 type CreateOneData = {
   title: string;
@@ -26,10 +26,6 @@ async function replaceCover(newCover: Buffer, prevCoverName: string): Promise<vo
   await sharp(newCover).toFile(path.resolve(BLOGPOST_COVERS_DIR, coverWithExt));
 }
 
-function getCoverURL(coverName: string): string {
-  return `${ASSETS_URL}/covers/blog/${coverName}.${WEBP_EXT}`;
-}
-
 async function createOne(cover: Buffer, data: CreateOneData): Promise<BlogPost> {
   const coverName = await ImageController.saveBufferWithUniqueName(cover, BLOGPOST_COVERS_DIR);
 
@@ -45,7 +41,7 @@ async function getAllWithURLCover(limit: number): Promise<BlogPost[]> {
     order: [["createdAt", "DESC"]],
   });
   return posts.map(post => {
-    post.cover = getCoverURL(post.cover);
+    post.cover = ImageController.getURLFromName(post.cover, BLOGPOST_COVERS_DIR);
 
     return post;
   });
@@ -57,7 +53,7 @@ async function getByIdWithURLCover(id: number): Promise<BlogPost | null> {
   if(!blogPost)
     return null;
 
-  blogPost.cover = getCoverURL(blogPost.cover);
+  blogPost.cover = ImageController.getURLFromName(blogPost.cover, BLOGPOST_COVERS_DIR);
   return blogPost;
 }
 

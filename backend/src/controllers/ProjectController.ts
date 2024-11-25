@@ -18,6 +18,19 @@ async function createOne(cover: Buffer, data: CreateOneData): Promise<Project> {
   });
 }
 
+async function getAllWithURLCover(): Promise<Project[]> {
+  const projects = await Project.findAll({
+    order: [["createdAt", "DESC"]],
+  });
+
+  return projects.map(p => {
+    p.cover = ImageController.getURLFromName(p.cover, PROJECT_COVERS_DIR);
+
+    return p;
+  });
+}
+
 export default {
   createOne,
+  getAllWithURLCover,
 };
