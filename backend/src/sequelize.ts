@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
-import { BlogPost } from "./models";
+import { BlogPost, Project } from "./models";
 import { SEQUELIZE_LOGGING } from "./constants";
 
 const sequelize = new Sequelize({
@@ -8,6 +8,6 @@ const sequelize = new Sequelize({
   logging: SEQUELIZE_LOGGING ? undefined : false,
 });
 
-sequelize.addModels([BlogPost]);
+sequelize.addModels([BlogPost, Project]);
 
 export default sequelize;

@@ -1,45 +1,37 @@
 import fs from "fs";
 import sharp from "sharp";
 import path from "path";
+import ImageController from "./ImageController";
 
 import { BlogPost } from "../models";
-import { BLOGPOST_COVERS_DIR, BLOGPOST_COVER_EXT, ASSETS_URL } from "../constants";
-
-const MAX_RANDOM_NUM = 10000;
+import { BLOGPOST_COVERS_DIR, ASSETS_URL } from "../constants";
 
 type CreateOneData = {
   title: string;
   content: string;
 };
 
-async function saveCover(cover: Buffer): Promise<string> {
-  const coverName = `${Math.floor(Math.random() * MAX_RANDOM_NUM)}-${Date.now()}`;
-  const coverWithExt = `${coverName}.${BLOGPOST_COVER_EXT}`;
+const WEBP_EXT = "webp";
 
-  await fs.promises.mkdir(BLOGPOST_COVERS_DIR, { recursive: true });
-  await sharp(cover).toFile(path.resolve(BLOGPOST_COVERS_DIR, coverWithExt));
-
-  return coverName;
-}
-
+// TODO: generalize deleteCover and replaceCover into ImageController
 async function deleteCover(coverName: string): Promise<void> {
-  const coverWithExt = `${coverName}.${BLOGPOST_COVER_EXT}`;
+  const coverWithExt = `${coverName}.${WEBP_EXT}`;
   const fullPath = path.resolve(BLOGPOST_COVERS_DIR, coverWithExt);
   await fs.promises.rm(fullPath);
 }
 
 async function replaceCover(newCover: Buffer, prevCoverName: string): Promise<void> {
-  const coverWithExt = `${prevCoverName}.${BLOGPOST_COVER_EXT}`;
+  const coverWithExt = `${prevCoverName}.${WEBP_EXT}`;
   await fs.promises.mkdir(BLOGPOST_COVERS_DIR, { recursive: true });
   await sharp(newCover).toFile(path.resolve(BLOGPOST_COVERS_DIR, coverWithExt));
 }
 
 function getCoverURL(coverName: string): string {
-  return `${ASSETS_URL}/covers/${coverName}.${BLOGPOST_COVER_EXT}`;
+  return `${ASSETS_URL}/covers/blog/${coverName}.${WEBP_EXT}`;
 }
 
 async function createOne(cover: Buffer, data: CreateOneData): Promise<BlogPost> {
-  const coverName = await saveCover(cover);
+  const coverName = await ImageController.saveBufferWithUniqueName(cover, BLOGPOST_COVERS_DIR);
 
   return await BlogPost.create({
     ...data,
