@@ -1,12 +1,6 @@
 .main-form {
   & .input-group {
     margin-top: 20px;
-
-    & .label {
-      color: var(--hsl-gray-light);
-      font-size: 14px;
-      font-weight: bold;
-    }
   }
 
   & .btn-container {

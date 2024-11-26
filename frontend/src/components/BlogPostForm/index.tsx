@@ -1,5 +1,5 @@
 import { parseCssModule } from "@/utils/css";
-import { Input, TextArea, Button } from "../Form";
+import { Input, TextArea, Button, Label } from "../Form";
 
 import styles from "./styles.module.scss";
 
@@ -23,14 +23,11 @@ export function MainForm(props: MainFormProps) {
     <div className={getClassName("main-form")}>
       <form onSubmit={props.onSubmit}>
         <div className={getClassName("input-group")}>
-          <label
-            className={getClassName("label")}
-            htmlFor="cover-title"
-          >
+          <Label htmlFor="title-input">
             Title
-          </label>
+          </Label>
           <Input
-            id="cover-title"
+            id="title-input"
             type="text"
             name="title"
             value={props.data.title}
@@ -41,13 +38,11 @@ export function MainForm(props: MainFormProps) {
         </div>
 
         <div className={getClassName("input-group")}>
-          <label
-            className={getClassName("label")}
-            htmlFor="cover-content"
-          >
+          <Label htmlFor="content-textarea">
             Content
-          </label>
+          </Label>
           <TextArea
+            id="content-textarea"
             value={props.data.content}
             onChange={(v) => props.onChange(v, "content")}
             maxLength={MAX_CONTENT_LENGTH}
@@ -67,5 +62,3 @@ export function MainForm(props: MainFormProps) {
     </div>
   );
 }
-
-// TODO: replace labels with Form's Label component
