@@ -10,6 +10,7 @@ import EditBlogPost from "./pages/EditBlogPost";
 import Login from "./pages/Login";
 import BlogHome from "./pages/BlogHome";
 import CreateProject from "./pages/CreateProject";
+import Projects from "./pages/Projects";
 
 import Router from "./Router";
 import Notifications from "./Notifications";
@@ -33,6 +34,7 @@ createRoot(document.getElementById("root")!).render(
           { path: "/login", Component: Login },
           { path: "/blog", Component: BlogHome },
           { path: "/projects/create", Component: CreateProject },
+          { path: "/projects", Component: Projects },
           { path: "*", Component: Page404 },
         ]}
       />

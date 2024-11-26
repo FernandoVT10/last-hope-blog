@@ -5,3 +5,11 @@ export type BlogPost = {
   content: string;
   createdAt: string;
 };
+
+export type Project = {
+  id: number;
+  cover: string;
+  name: string;
+  description: string;
+  link: string;
+};
