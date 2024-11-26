@@ -77,6 +77,7 @@ const idValidator: Validator = {
 
 router.delete(
   "/:projectId",
+  authorizeApi(),
   validateReq({ projectId: idValidator }),
   async (req, res, next) => {
     try {
