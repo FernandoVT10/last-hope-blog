@@ -66,6 +66,12 @@ $border-color: hsl(var(--hsl-blue));
     --bg-hover: hsl(var(--hsl-black-lighter-2));
   }
 
+  &.link {
+    --bg: transparent;
+    --bg-hover: transparent;
+    padding: 0;
+  }
+
   &:hover {
     background: var(--bg-hover);
   }

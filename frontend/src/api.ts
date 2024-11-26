@@ -99,10 +99,22 @@ async function createProject(data: CreateProjectData): Promise<void> {
     throw new Error(`The server responded with status: ${res.status}`);
 }
 
+async function deleteProject(projectId: number): Promise<void> {
+  const res = await fetch(`${API_URL}/projects/${projectId}`, {
+    method: "DELETE",
+  });
+
+  if(res.status === 200)
+    return;
+
+  throw new Error(`The server responded with status: ${res.status}`);
+}
+
 export default {
   createBlogPost,
   deleteBlogPost,
   updateBlogPost,
   login,
   createProject,
+  deleteProject,
 };

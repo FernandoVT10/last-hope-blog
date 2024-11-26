@@ -15,6 +15,7 @@ type DeletePostModalProps = {
   blogPostId: number;
 };
 
+// TODO: replace this component with the confirmation modal
 function DeletePostModal({ modal, blogPostId }: DeletePostModalProps) {
   const [loading, setLoading] = useState(false);
 

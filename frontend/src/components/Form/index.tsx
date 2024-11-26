@@ -74,7 +74,7 @@ type ButtonProps = {
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
-  style?: "normal" | "danger" | "secondary";
+  style?: "normal" | "danger" | "secondary" | "link";
 };
 
 export function Button(props: ButtonProps) {

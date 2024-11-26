@@ -1,0 +1,8 @@
+.confirmation-modal {
+  display: flex;
+  column-gap: 20px;
+
+  & .btn {
+    flex: 1;
+  }
+}

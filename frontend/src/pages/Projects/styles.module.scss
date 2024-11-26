@@ -5,11 +5,13 @@
   margin: 40px auto;
 
   & .project {
+    position: relative;
     box-shadow: 0 0 5px 5px black;
 
     & .cover-container {
       position: relative;
       height: 300px;
+      overflow: hidden;
 
       &:before {
         content: "";
@@ -50,6 +52,21 @@
 
     & .description {
       line-height: 2;
+    }
+
+    & .options {
+      position: absolute;
+      display: flex;
+      column-gap: 10px;
+      top: 20px;
+      right: 20px;
+
+      & .option {
+        border-radius: 5px;
+        padding: 5px 15px;
+        border: none;
+        background: hsl(var(--hsl-black-light));
+      }
     }
   }
 }
