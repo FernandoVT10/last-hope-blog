@@ -91,7 +91,7 @@ router.get("/projects/create", async (req, res, next) => {
 router.get("/projects", async (req, res, next) => {
   try {
     const projects = await ProjectController.getAllWithURLCover();
-    res.send(await getHTMLFile(req, "Create Project", { projects }));
+    res.send(await getHTMLFile(req, "Projects", { projects }));
   } catch(e) {
     next(e);
   }
