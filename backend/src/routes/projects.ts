@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authorizeApi } from "../middlewares/authorize";
-import validateReq, { Validators } from "../middlewares/validateReq";
+import validateReq, { Validators, Validator } from "../middlewares/validateReq";
 import parseMultipart from "../middlewares/parseMultipart";
 import {
   MAX_PROJECT_DESCRIPTION_LENGTH,
@@ -46,6 +46,43 @@ router.post(
         name, description, link,
       });
       res.json({ project });
+    } catch(e) {
+      next(e);
+    }
+  }
+);
+
+
+const idValidator: Validator = {
+  type: "number",
+  in: "params",
+  min: 1,
+  required: true,
+  custom: async (id) => {
+    let exists: boolean;
+
+    try {
+      exists = await ProjectController.existsById(id);
+    } catch(e) {
+      console.error(new Error("Error trying to query the db"), e);
+      throw new Error("Server Error");
+    }
+
+    if(!exists)
+      throw new Error("there is no project with this id");
+
+    return true;
+  },
+};
+
+router.delete(
+  "/:projectId",
+  validateReq({ projectId: idValidator }),
+  async (req, res, next) => {
+    try {
+      const projectId = parseInt(req.params.projectId);
+      await ProjectController.deleteById(projectId);
+      res.sendStatus(200);
     } catch(e) {
       next(e);
     }

@@ -13,13 +13,7 @@ type CreateOneData = {
 
 const WEBP_EXT = "webp";
 
-// TODO: generalize deleteCover and replaceCover into ImageController
-async function deleteCover(coverName: string): Promise<void> {
-  const coverWithExt = `${coverName}.${WEBP_EXT}`;
-  const fullPath = path.resolve(BLOGPOST_COVERS_DIR, coverWithExt);
-  await fs.promises.rm(fullPath);
-}
-
+// TODO: generalize replaceCover into ImageController
 async function replaceCover(newCover: Buffer, prevCoverName: string): Promise<void> {
   const coverWithExt = `${prevCoverName}.${WEBP_EXT}`;
   await fs.promises.mkdir(BLOGPOST_COVERS_DIR, { recursive: true });
@@ -71,7 +65,7 @@ async function deleteById(id: number): Promise<void> {
   if(!blogPost)
     throw new Error("Blog Post is null");
 
-  await deleteCover(blogPost.cover);
+  await ImageController.deleteByUniqueName(blogPost.cover, BLOGPOST_COVERS_DIR);
 
   await blogPost.destroy();
 }

@@ -25,7 +25,14 @@ function getURLFromName(name: string, storedPath: string): string {
   return ASSETS_URL + localPath;
 }
 
+async function deleteByUniqueName(name: string, storedPath: string): Promise<void> {
+  const fullname = `${name}.${WEBP_EXT}`;
+  const fullPath = path.resolve(storedPath, fullname);
+  await fs.promises.rm(fullPath);
+}
+
 export default {
   saveBufferWithUniqueName,
   getURLFromName,
+  deleteByUniqueName,
 };

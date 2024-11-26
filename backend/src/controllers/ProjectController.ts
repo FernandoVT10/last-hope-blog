@@ -30,7 +30,28 @@ async function getAllWithURLCover(): Promise<Project[]> {
   });
 }
 
+async function existsById(id: number): Promise<boolean> {
+  const count = await Project.count({
+    where: { id },
+  });
+
+  return count > 0;
+}
+
+async function deleteById(projectId: number): Promise<void> {
+  const project = await Project.findByPk(projectId);
+
+  if(!project)
+    throw new Error("Project is null");
+
+  await ImageController.deleteByUniqueName(project.cover, PROJECT_COVERS_DIR);
+
+  await project.destroy();
+}
+
 export default {
   createOne,
   getAllWithURLCover,
+  existsById,
+  deleteById,
 };
