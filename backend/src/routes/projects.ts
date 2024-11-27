@@ -90,4 +90,49 @@ router.delete(
   }
 );
 
+const updateProject: Validators = {
+  projectId: idValidator,
+  cover: {
+    type: "image",
+    required: false,
+  },
+  name: {
+    type: "string",
+    maxLength: MAX_PROJECT_NAME_LENGTH,
+    required: false,
+  },
+  description: {
+    type: "string",
+    maxLength: MAX_PROJECT_DESCRIPTION_LENGTH,
+    required: false,
+  },
+  link: {
+    type: "string",
+    maxLength: MAX_PROJECT_LINK_LENGTH,
+    required: false,
+  },
+};
+
+router.put(
+  "/:projectId",
+  parseMultipart("cover"),
+  validateReq(updateProject),
+  async (req, res, next) => {
+    try {
+      const projectId = parseInt(req.params.projectId);
+
+      await ProjectController.updateById(projectId, {
+        cover: req.file,
+        name: req.body.name || undefined,
+        description: req.body.description || undefined,
+        link: req.body.link || undefined,
+      });
+
+      res.sendStatus(200);
+    } catch(e) {
+      next(e);
+    }
+  }
+);
+
 export default router;

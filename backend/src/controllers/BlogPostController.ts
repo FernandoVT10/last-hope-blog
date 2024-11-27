@@ -1,6 +1,3 @@
-import fs from "fs";
-import sharp from "sharp";
-import path from "path";
 import ImageController from "./ImageController";
 
 import { BlogPost } from "../models";
@@ -10,15 +7,6 @@ type CreateOneData = {
   title: string;
   content: string;
 };
-
-const WEBP_EXT = "webp";
-
-// TODO: generalize replaceCover into ImageController
-async function replaceCover(newCover: Buffer, prevCoverName: string): Promise<void> {
-  const coverWithExt = `${prevCoverName}.${WEBP_EXT}`;
-  await fs.promises.mkdir(BLOGPOST_COVERS_DIR, { recursive: true });
-  await sharp(newCover).toFile(path.resolve(BLOGPOST_COVERS_DIR, coverWithExt));
-}
 
 async function createOne(cover: Buffer, data: CreateOneData): Promise<BlogPost> {
   const coverName = await ImageController.saveBufferWithUniqueName(cover, BLOGPOST_COVERS_DIR);
@@ -83,7 +71,7 @@ async function updateById(id: number, data: UpdateByIdData): Promise<void> {
     throw new Error("Blog Post is null");
 
   if(data.cover) {
-    await replaceCover(data.cover, blogPost.cover);
+    await ImageController.replaceWithBuffer(data.cover, blogPost.cover, BLOGPOST_COVERS_DIR);
   }
 
   await blogPost.update({

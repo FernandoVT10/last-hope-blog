@@ -17,22 +17,31 @@ async function saveBufferWithUniqueName(buffer: Buffer, dirPath: string): Promis
   return name;
 }
 
-function getURLFromName(name: string, storedPath: string): string {
+function getURLFromName(name: string, storedDir: string): string {
   const fullname = `${name}.${WEBP_EXT}`;
-  const imagePath = path.resolve(storedPath, fullname);
+  const imagePath = path.resolve(storedDir, fullname);
 
   const localPath = imagePath.replace(ASSETS_DIR, "");
   return ASSETS_URL + localPath;
 }
 
-async function deleteByUniqueName(name: string, storedPath: string): Promise<void> {
+async function deleteByUniqueName(name: string, storedDir: string): Promise<void> {
   const fullname = `${name}.${WEBP_EXT}`;
-  const fullPath = path.resolve(storedPath, fullname);
+  const fullPath = path.resolve(storedDir, fullname);
   await fs.promises.rm(fullPath);
+}
+
+async function replaceWithBuffer(buffer: Buffer, name: string, storedDir: string): Promise<void> {
+  const fullname = `${name}.${WEBP_EXT}`;
+  const fullPath = path.resolve(storedDir, fullname);
+
+  await fs.promises.mkdir(storedDir, { recursive: true });
+  await sharp(buffer).toFile(path.resolve(storedDir, fullPath));
 }
 
 export default {
   saveBufferWithUniqueName,
   getURLFromName,
   deleteByUniqueName,
+  replaceWithBuffer,
 };
