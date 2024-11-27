@@ -115,6 +115,7 @@ const updateProject: Validators = {
 
 router.put(
   "/:projectId",
+  authorizeApi(),
   parseMultipart("cover"),
   validateReq(updateProject),
   async (req, res, next) => {
