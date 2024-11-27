@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run dev -w backend\" \"npm run build:watch -w frontend\""
+    "dev": "concurrently \"npm run dev -w backend\" \"npm run build:watch -w frontend\"",
+    "build": "npm run build -w frontend && npm run build -w backend",
+    "start": "node ./backend/build/main.js"
   },
   "keywords": [],
   "author": "",

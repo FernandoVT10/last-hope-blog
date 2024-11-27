@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     emptyOutDir: true,
-    outDir: path.resolve(__dirname, "../build/"),
+    outDir: path.resolve(__dirname, "./build/"),
     assetsDir: "resources",
   },
   server: {

@@ -14,6 +14,7 @@ config({
 });
 
 export const ASSETS_DIR = path.resolve(__dirname, "../assets");
+export const RESOURCES_DIR = path.resolve(__dirname, "../../frontend/build/resources");
 
 export const MAX_BLOGPOST_TITLE_LENGTH = 100;
 export const MAX_BLOGPOST_CONTENT_LENGTH = 2000;
@@ -30,7 +31,7 @@ export const SEQUELIZE_LOGGING = true;
 
 export const ASSETS_URL = "http://localhost:3000/assets";
 
-export const HTML_PATH = path.resolve(__dirname, "../../build/index.html");
+export const HTML_PATH = path.resolve(__dirname, "../../frontend/build/index.html");
 
 export const PRODUCTION = process.env.NODE_ENV === "production";
 
