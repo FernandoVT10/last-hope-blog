@@ -110,6 +110,34 @@ async function deleteProject(projectId: number): Promise<void> {
   throw new Error(`The server responded with status: ${res.status}`);
 }
 
+export type UpdateProjectData = {
+  name?: string;
+  description?: string;
+  link?: string;
+  cover?: File;
+};
+
+async function updateProject(projectId: number, data: UpdateProjectData): Promise<void> {
+  const formData = new FormData();
+
+  if(data.name)
+    formData.append("name", data.name);
+  if(data.description)
+    formData.append("description", data.description);
+  if(data.link)
+    formData.append("link", data.link);
+  if(data.cover)
+    formData.append("cover", data.cover);
+
+  const res = await fetch(`${API_URL}/projects/${projectId}`, {
+    method: "PUT",
+    body: formData,
+  });
+
+  if(res.status !== 200)
+    throw new Error(`The server responded with status: ${res.status}`);
+}
+
 export default {
   createBlogPost,
   deleteBlogPost,
@@ -117,4 +145,5 @@ export default {
   login,
   createProject,
   deleteProject,
+  updateProject,
 };

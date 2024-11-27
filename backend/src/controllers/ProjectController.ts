@@ -73,10 +73,21 @@ async function updateById(id: number, data: UpdateByIdData): Promise<void> {
   });
 }
 
+async function getByIdWithURLCover(id: number): Promise<Project | null> {
+  const project = await Project.findByPk(id);
+
+  if(!project) return null;
+
+  project.cover = ImageController.getURLFromName(project.cover, PROJECT_COVERS_DIR);
+
+  return project;
+}
+
 export default {
   createOne,
   getAllWithURLCover,
   existsById,
   deleteById,
   updateById,
+  getByIdWithURLCover,
 };

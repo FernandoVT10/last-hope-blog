@@ -97,6 +97,17 @@ router.get("/projects", async (req, res, next) => {
   }
 });
 
+router.get("/projects/:id/edit", authorizePage(), async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id) || 0;
+    const project = await ProjectController.getByIdWithURLCover(id);
+    const title = "Editing " + project?.name || "Not found";
+    res.send(await getHTMLFile(req, title, { project }));
+  } catch(e) {
+    next(e);
+  }
+});
+
 router.get("*", async (req, res, next) => {
   try {
     // react handles it and shows a 404 page

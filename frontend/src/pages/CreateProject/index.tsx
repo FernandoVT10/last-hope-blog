@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { PageWrapper } from "@components/Layout";
 import { parseCssModule } from "@/utils/css";
-import { Button, Input, Label, TextArea } from "@/components/Form";
 
 import Navbar from "@components/Navbar";
 import CoverSelector from "@/components/CoverSelector";
 import Notifications from "@/Notifications";
-
-import styles from "./styles.module.scss";
+import ProjectForm from "@/components/ProjectForm";
 import api from "@/api";
 
-const MAX_DESCRIPTION_LENGTH = 500;
+import styles from "./styles.module.scss";
 
 const getClassName = parseCssModule(styles);
 
@@ -82,55 +80,13 @@ function CreateProject() {
 
           <CoverSelector setCover={setCover}/>
 
-          <div className={getClassName("form")}>
-            <form onSubmit={onSubmit}>
-              <div className={getClassName("input-group")}>
-                <Label htmlFor="name-input">Name</Label>
-                <Input
-                  id="name-input"
-                  type="text"
-                  name="name"
-                  value={data.name}
-                  onChange={(v) => onChange(v, "name")}
-                  placeholder="Write an amazing name"
-                  required
-                />
-              </div>
-
-              <div className={getClassName("input-group")}>
-                <Label htmlFor="description-textarea">Description</Label>
-                <TextArea
-                  id="description-textarea"
-                  value={data.description}
-                  onChange={(v) => onChange(v, "description")}
-                  maxLength={MAX_DESCRIPTION_LENGTH}
-                  required
-                />
-              </div>
-
-              <div className={getClassName("input-group")}>
-                <Label htmlFor="link-input">Link</Label>
-                <Input
-                  id="link-input"
-                  type="url"
-                  name="name"
-                  value={data.link}
-                  onChange={(v) => onChange(v, "link")}
-                  placeholder="https://gnu.org"
-                  required
-                />
-              </div>
-
-              <div className={getClassName("btn-container")}>
-                <Button
-                  type="submit"
-                  disabled={loading}
-                >
-                  Create Project
-                </Button>
-              </div>
-            </form>
-          </div>
+          <ProjectForm
+            onSubmit={onSubmit}
+            data={data}
+            onChange={onChange}
+            loading={loading}
+            submitBtnText="Create Project"
+          />
         </div>
       </PageWrapper>
     </>

@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import BlogHome from "./pages/BlogHome";
 import CreateProject from "./pages/CreateProject";
 import Projects from "./pages/Projects";
+import EditProject from "./pages/EditProject";
 
 import Router from "./Router";
 import Notifications from "./Notifications";
@@ -35,6 +36,7 @@ createRoot(document.getElementById("root")!).render(
           { path: "/blog", Component: BlogHome },
           { path: "/projects/create", Component: CreateProject },
           { path: "/projects", Component: Projects },
+          { path: "/projects/:projectId/edit", Component: EditProject },
           { path: "*", Component: Page404 },
         ]}
       />
