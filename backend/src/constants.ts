@@ -1,7 +1,13 @@
 import path from "path";
+import fs from "fs";
 import { config } from "dotenv";
 
 const ENV_FILE_PATH = path.resolve(__dirname, "../../.env");
+
+if(!fs.existsSync(ENV_FILE_PATH)) {
+  console.error(`[SERVER] Error: .env file not found in ${ENV_FILE_PATH}, did you create it?`);
+  process.exit(1);
+}
 
 config({
   path: ENV_FILE_PATH,
@@ -32,5 +38,3 @@ export const TOKEN_COOKIE_NAME = "token";
 
 export const PASSWORD = process.env.PASSWORD as string;
 export const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY as string;
-
-// TODO: add a warning if .env file doesn't exist
