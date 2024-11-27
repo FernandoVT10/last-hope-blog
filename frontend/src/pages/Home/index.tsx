@@ -53,6 +53,19 @@ function Home({ blogPosts }: { blogPosts: BlogPost[] }) {
     });
   };
 
+  const getBlogPostsSection = () => {
+    if(!blogPosts.length) return null;
+
+    return (
+      <section className={getClassName("blog-posts-section")}>
+        <h3 className={getClassName("subtitle")}>Posts from my blog</h3>
+        <div className={getClassName("blog-posts")}>
+          {getBlogPosts()}
+        </div>
+      </section>
+    );
+  };
+
   return (
     <>
       <div className={getClassName("navbar-container")}>
@@ -115,12 +128,7 @@ function Home({ blogPosts }: { blogPosts: BlogPost[] }) {
           </div>
         </section>
 
-        <section className={getClassName("blog-posts-section")}>
-          <h3 className={getClassName("subtitle")}>Posts from my blog</h3>
-          <div className={getClassName("blog-posts")}>
-            {getBlogPosts()}
-          </div>
-        </section>
+        {getBlogPostsSection()}
       </PageWrapper>
     </>
   );

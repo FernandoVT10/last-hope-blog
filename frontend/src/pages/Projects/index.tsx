@@ -70,6 +70,14 @@ function Projects({ projects: initialProjects }: { projects: Project[] }) {
   };
 
   const getProjects = () => {
+    if(projects.length) {
+      return (
+        <h2 className={getClassName("no-projects-text")}>
+          There is no projects to show
+        </h2>
+      );
+    }
+
     return projects.map(project => {
       const getOptions = () => {
         if(!globalContext.isAuthenticated) return null;

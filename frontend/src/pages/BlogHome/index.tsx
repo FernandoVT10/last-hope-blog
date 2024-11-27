@@ -12,6 +12,14 @@ const getClassName = parseCssModule(styles);
 
 function BlogHome({ blogPosts }: { blogPosts: BlogPost[] }) {
   const getBlogPosts = () => {
+    if(!blogPosts.length) {
+      return (
+        <h2 className={getClassName("no-posts-text")}>
+          There is no blog posts to show
+        </h2>
+      );
+    }
+
     return blogPosts.map(blogPost => {
       return (
         <div className={getClassName("blog-post")} key={blogPost.id}>

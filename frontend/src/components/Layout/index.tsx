@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 
 const getClassName = parseCssModule(styles);
 
-type Children = React.JSX.Element | React.JSX.Element[];
+type Children = React.ReactNode;
 
 type PageWrapperProps = {
   children: Children;

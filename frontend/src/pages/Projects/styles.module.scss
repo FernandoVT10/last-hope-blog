@@ -69,4 +69,10 @@
       }
     }
   }
+
+  & .no-projects-text {
+    color: hsl(var(--hsl-blue));
+    font-size: var(--fz-20);
+    text-align: center;
+  }
 }

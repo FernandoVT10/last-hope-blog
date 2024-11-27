@@ -54,4 +54,10 @@
   flex-direction: column;
   row-gap: 40px;
   padding: 40px 0;
+
+  & .no-posts-text {
+    color: hsl(var(--hsl-blue));
+    font-size: var(--fz-20);
+    text-align: center;
+  }
 }
