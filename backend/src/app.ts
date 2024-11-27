@@ -6,6 +6,7 @@ import blogPosts from "./routes/blogPosts";
 import pages from "./routes/pages";
 import auth from "./routes/auth";
 import projects from "./routes/projects";
+import errorHandler from "./middlewares/errorHandler";
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.use(pages);
 app.use("/api", auth);
 app.use("/api/blog/posts", blogPosts);
 app.use("/api/projects", projects);
+app.use(errorHandler);
 
 export default app;
