@@ -29,13 +29,12 @@ export const PORT = 3000;
 
 export const SEQUELIZE_LOGGING = true;
 
-export const ASSETS_URL = "http://localhost:3000/assets";
-
 export const HTML_PATH = path.resolve(__dirname, "../../frontend/build/index.html");
 
 export const PRODUCTION = process.env.NODE_ENV === "production";
 
 export const TOKEN_COOKIE_NAME = "token";
 
+export const ASSETS_URL = process.env.ASSETS_URL as string;
 export const PASSWORD = process.env.PASSWORD as string;
 export const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY as string;

@@ -1,4 +1,3 @@
-import { API_URL } from "./constants";
 import { BlogPost } from "./types";
 
 type CreateBlogPostData = {
@@ -6,6 +5,8 @@ type CreateBlogPostData = {
   title: string;
   content: string;
 };
+
+const API_URL = "/api";
 
 async function createBlogPost(data: CreateBlogPostData): Promise<BlogPost> {
   const formData = new FormData();
