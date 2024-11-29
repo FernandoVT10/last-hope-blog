@@ -39,9 +39,15 @@ async function replaceWithBuffer(buffer: Buffer, name: string, storedDir: string
   await sharp(buffer).toFile(path.resolve(storedDir, fullPath));
 }
 
+async function uploadBufferAsImage(buffer: Buffer, storeDir: string): Promise<string> {
+  const name = await saveBufferWithUniqueName(buffer, storeDir);
+  return getURLFromName(name, storeDir);
+}
+
 export default {
   saveBufferWithUniqueName,
   getURLFromName,
   deleteByUniqueName,
   replaceWithBuffer,
+  uploadBufferAsImage,
 };

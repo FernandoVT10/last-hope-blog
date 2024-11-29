@@ -15,15 +15,16 @@ config({
 
 export const ASSETS_DIR = path.resolve(__dirname, "../assets");
 export const RESOURCES_DIR = path.resolve(__dirname, "../../frontend/build/resources");
+export const BLOGPOST_COVERS_DIR = path.resolve(ASSETS_DIR, "covers/blog");
+export const PROJECT_COVERS_DIR = path.resolve(ASSETS_DIR, "covers/projects");
+export const BLOG_UPLOADS_DIR = path.resolve(ASSETS_DIR, "uploads/blog");
 
 export const MAX_BLOGPOST_TITLE_LENGTH = 100;
 export const MAX_BLOGPOST_CONTENT_LENGTH = 5000;
-export const BLOGPOST_COVERS_DIR = path.resolve(ASSETS_DIR, "covers/blog");
 
 export const MAX_PROJECT_NAME_LENGTH = 100;
 export const MAX_PROJECT_DESCRIPTION_LENGTH = 500;
 export const MAX_PROJECT_LINK_LENGTH = 200;
-export const PROJECT_COVERS_DIR = path.resolve(ASSETS_DIR, "covers/projects");
 
 export const PORT = 3000;
 

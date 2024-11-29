@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import blog from "./routes/blog";
 import blogPosts from "./routes/blogPosts";
 import pages from "./routes/pages";
 import auth from "./routes/auth";
@@ -24,6 +25,7 @@ app.get("/api/ok", (_, res) => {
 app.use(pages);
 
 app.use("/api", auth);
+app.use("/api/blog", blog);
 app.use("/api/blog/posts", blogPosts);
 app.use("/api/projects", projects);
 app.use(errorHandler);
