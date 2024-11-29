@@ -17,6 +17,7 @@ import Router from "./Router";
 import Notifications from "./Notifications";
 
 import "./index.scss";
+import "./styles/prismTheme.scss";
 
 Notifications.init();
 

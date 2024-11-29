@@ -5,12 +5,10 @@
 
   $border-color: hsl(var(--hsl-white-darker));
 
-  & code {
-    color: $code-color;
-    background: $code-bg;
-    padding: 0 5px;
-    line-height: 2;
-  }
+  /* & code { */
+  /*   color: $code-color; */
+  /*   padding: 0 5px; */
+  /* } */
 
   & p, & h1, & h2, & h3, & h4, & h5, & h6 {
     &:nth-child(1) { margin: 0; }

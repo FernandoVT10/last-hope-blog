@@ -13,3 +13,9 @@ export type Project = {
   description: string;
   link: string;
 };
+
+declare global {
+  interface Window {
+    Prism: any;
+  }
+}

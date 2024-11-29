@@ -42,6 +42,10 @@
 
   & .content-container {
     margin-top: 20px;
+
+    & :global(.code-block) {
+      background: hsl(var(--hsl-black));
+    }
   }
 
   & .actions-container {

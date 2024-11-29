@@ -44,6 +44,10 @@
   & .preview-container {
     padding: 20px;
     background: hsl(var(--hsl-black));
+
+    & :global(.code-block) {
+      background: hsl(var(--hsl-black-light));
+    }
   }
 }
 
