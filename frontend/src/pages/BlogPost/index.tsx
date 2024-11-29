@@ -8,15 +8,14 @@ import { ClockIcon } from "@/icons";
 import { GlobalContext } from "@/contexts";
 import { formatDate } from "@/utils/formatters";
 
-import markdownIt from "markdown-it";
 import DeletePostModal from "./DeletePostModal";
 import NotFound from "@components/NotFound";
 import Navbar from "@/components/Navbar";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 import styles from "./styles.module.scss";
 
 const getClassName = parseCssModule(styles);
-const md = markdownIt();
 
 function BlogPost({ blogPost }: { blogPost: BlogPostType | null }) {
   if(!blogPost) {
@@ -26,11 +25,6 @@ function BlogPost({ blogPost }: { blogPost: BlogPostType | null }) {
   const globalContext = useContext(GlobalContext);
 
   const deletePostModal = useModal();
-
-  const getContentHTML = (): string => {
-    const html = md.render(blogPost.content);
-    return html;
-  };
 
   const getButtons = () => {
     if(!globalContext.isAuthenticated) return null;
@@ -77,10 +71,9 @@ function BlogPost({ blogPost }: { blogPost: BlogPostType | null }) {
         <div className={getClassName("container")}>
           <h1 className={getClassName("title")}>{blogPost.title}</h1>
 
-          <div
-            className={getClassName("content")}
-            dangerouslySetInnerHTML={{ __html: getContentHTML() }}
-          ></div>
+          <div className={getClassName("content-container")}>
+            <MarkdownRenderer markdown={blogPost.content}/>
+          </div>
 
           {getButtons()}
         </div>
