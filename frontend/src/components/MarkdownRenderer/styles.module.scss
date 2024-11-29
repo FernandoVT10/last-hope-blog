@@ -1,0 +1,35 @@
+.markdown-renderer {
+  $code-color: hsl(var(--hsl-blue));
+  $code-bg: hsla(var(--hsl-blue), .1);
+
+  $border-color: hsl(var(--hsl-white-darker));
+
+  & code {
+    color: $code-color;
+    background: $code-bg;
+    padding: 0 5px;
+    line-height: 2;
+  }
+
+  & p, & h1, & h2, & h3, & h4, & h5, & h6 {
+    &:nth-child(1) { margin: 0; }
+    margin-top: 20px;
+  }
+
+  & h1, & h2 {
+    border-bottom: solid 1px $border-color;
+  }
+
+  & a {
+    text-decoration: underline;
+    transition: color .3s;
+
+    &:hover {
+      color: hsl(var(--hsl-blue));
+    }
+  }
+
+  & img {
+    max-width: 100%;
+  }
+}
