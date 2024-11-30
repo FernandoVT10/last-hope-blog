@@ -1,3 +1,48 @@
+.image-uploader {
+  & .input {
+    display: none;
+  }
+
+  & .label {
+    cursor: pointer;
+    display: block;
+    padding: 10px;
+    color: hsl(var(--hsl-blue));
+    transition: color .3s;
+
+    &:hover, &.loading {
+      color: hsl(var(--hsl-blue-light));
+    }
+
+    &.loading {
+      cursor: wait;
+    }
+  }
+
+  & .images {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: 0;
+    padding: 0;
+
+    & .image .button {
+      border-radius: 10px;
+      border: none;
+      background: hsla(var(--hsl-blue), 0.2);
+      width: fit-content;
+      padding: 10px;
+      color: hsl(var(--hsl-blue));
+      transition: background .3s;
+
+      &:hover {
+        background: hsla(var(--hsl-blue), 0.4);
+      }
+    }
+  }
+}
+
 .content-editor {
   margin-top: 20px;
 

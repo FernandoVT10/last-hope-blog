@@ -3,12 +3,90 @@ import { parseCssModule } from "@/utils/css";
 import { Input, Button, Label } from "../Form";
 
 import MarkdownRenderer from "../MarkdownRenderer";
+import Notifications from "@/Notifications";
+import api from "@/api";
 
 import styles from "./styles.module.scss";
 
 const MAX_CONTENT_LENGTH = 5000;
 
 const getClassName = parseCssModule(styles);
+
+type InputFileHandler = React.ChangeEventHandler<HTMLInputElement>;
+
+function ImageUploader({ hide }: { hide: boolean }) {
+  const [imagesUploaded, setImagesUploaded] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const onImageChange: InputFileHandler = async (e) => {
+    if(!e.target.files) return;
+
+    const file = e.target.files[0];
+
+    if(!file) return;
+
+    setLoading(true);
+    try {
+      const uploadedImage = await api.uploadImage(file);
+      setImagesUploaded([uploadedImage, ...imagesUploaded]);
+    } catch(e) {
+      Notifications.error("There was an error trying to upload the image");
+      console.error(e);
+    }
+    setLoading(false);
+  };
+
+  const addTextToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    Notifications.success("Copied image link!");
+  };
+
+  const getImagesUploaded = () => {
+    if(!imagesUploaded.length) return;
+
+    return (
+      <ul className={getClassName("images")}>
+        {imagesUploaded.map(imageURL => {
+          return (
+            <li className={getClassName("image")}>
+              <button
+                type="button"
+                className={getClassName("button")}
+                onClick={() => addTextToClipboard(imageURL)}
+              >
+                {imageURL}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
+  if(hide) return null;
+
+  return (
+    <div className={getClassName("image-uploader")}>
+      <input
+        type="file"
+        accept="images/*"
+        onChange={onImageChange}
+        id="upload-image-input"
+        disabled={loading}
+        className={getClassName("input")}
+      />
+
+      <label
+        htmlFor="upload-image-input"
+        className={getClassName("label", { loading })}
+      >
+        {loading ? "Uploading your file..." : "Click to upload an image"}
+      </label>
+
+      {getImagesUploaded()}
+    </div>
+  );
+}
 
 type TextAreaHandler = React.ChangeEventHandler<HTMLTextAreaElement>;
 
@@ -58,6 +136,10 @@ function ContentEditor(props: ContentEditorProps) {
           required
         ></textarea>
       )}
+
+      {/* We're hiding this instead of doing conditional rendering because,
+        we need its state to survive between editing and previewing */}
+      <ImageUploader hide={showPreview}/>
     </div>
   );
 }

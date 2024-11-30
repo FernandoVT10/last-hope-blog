@@ -139,6 +139,22 @@ async function updateProject(projectId: number, data: UpdateProjectData): Promis
     throw new Error(`The server responded with status: ${res.status}`);
 }
 
+async function uploadImage(image: File): Promise<string> {
+  const formData = new FormData();
+  formData.append("image", image);
+
+  const res = await fetch(`${API_URL}/blog/uploadImage`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if(res.status !== 200)
+    throw new Error(`The server responded with status: ${res.status}`);
+
+  const json = await res.json();
+  return json.imageURL;
+}
+
 export default {
   createBlogPost,
   deleteBlogPost,
@@ -147,4 +163,5 @@ export default {
   createProject,
   deleteProject,
   updateProject,
+  uploadImage,
 };
