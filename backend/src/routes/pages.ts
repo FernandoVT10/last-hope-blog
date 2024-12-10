@@ -19,7 +19,8 @@ async function getHTMLFile(req: Request, title: string, data = {}): Promise<stri
 
   htmlFile = htmlFile.replace(TITLE_SYMBOL, title);
   htmlFile = htmlFile.replace(GENERAL_DATA_SYMBOL, JSON.stringify(generalData));
-  return htmlFile.replace(DATA_SYMBOL, JSON.stringify(data));
+  // TODO: think about a better solution for escaping characters
+  return htmlFile.replace(DATA_SYMBOL, JSON.stringify(data).replace(/<\//g, "<\\/"));
 }
 
 const router = Router();
